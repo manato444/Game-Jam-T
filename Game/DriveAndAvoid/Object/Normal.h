@@ -27,6 +27,6 @@ public:
 	virtual void Draw() override;
 	virtual void Update() override;
 
-	void SetType(int type) { this->type = type; };
+	virtual void  SetType(int type) override;
 
 };

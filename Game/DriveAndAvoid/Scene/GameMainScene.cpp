@@ -32,7 +32,7 @@ void GameMainScene::Initialize()
 
 	barrier_image = LoadGraph("Resource/images/barrier.png");
 	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image); 
-	item_image = LoadGraph("Resource/images/gasoline.bmp");
+	//item_image = LoadGraph("Resource/images/gasoline.bmp");
 	
 	//«ü‚è
 	image = LoadGraph("Resource/images/supana.bmp");

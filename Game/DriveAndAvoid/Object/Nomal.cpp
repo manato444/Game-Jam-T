@@ -11,7 +11,6 @@ Nomal::~Nomal()
 
 void Nomal::Initialize()
 {
-
 	hp = 100;
 	power = 10;
 	graphic = LoadGraph("Resource/images/walking2_man.png");
@@ -21,7 +20,6 @@ void Nomal::Initialize()
 	{
 		throw("Resource/images/walking2_man.png‚ª‚ ‚è‚Ü‚¹‚ñ\n");
 	}
-
 }
 
 void Nomal::Update()
@@ -50,4 +48,9 @@ void Nomal::Draw()
 	{
 		DrawRotaGraph(location.x, location.y, 0.3, 0.0, graphic, TRUE, TRUE);
 	}
+}
+
+void Nomal::SetType(int type)
+{
+	this->type = type;
 }
