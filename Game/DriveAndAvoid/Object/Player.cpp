@@ -318,7 +318,7 @@ void Player::Movement()
 	{
 		move -= Vector2D(0.0f, stick2[1]);
 	}
-
+	angle = 0.0f;
 	//ÉLÅ[ëÄçÏ
 	if (CheckHitKey(KEY_INPUT_LEFT))
 	{

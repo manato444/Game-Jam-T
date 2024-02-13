@@ -10,12 +10,10 @@ GameMainScene::GameMainScene() : high_score(0), back_ground(NULL), barrier_image
 								sound(NULL), mileage(0), player(nullptr), enemy(nullptr), item(nullptr), chara(nullptr)
 {
 	int i;
-	//item_image[i] = NULL;
 	for (i = 0; i < 3; i++)
 	{
 		enemy_image[i] = NULL;
 		enemy_count[i] = NULL;
-		//item_count[i] = NULL;
 	}
 }
 

@@ -6,8 +6,7 @@
 
 #define CHARACTER_SPEED 1.0f
 
-
-//キャラクターの種類
+//キャラクターの種類(列挙型)
 enum CharacterType
 {
 	Nomal_type,	//ノーマル
