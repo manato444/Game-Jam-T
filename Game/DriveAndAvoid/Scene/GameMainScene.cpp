@@ -1,13 +1,11 @@
 #include"GameMainScene.h"
 #include"../Object/RankingData.h"
-#include"../Utility/InputControl.h"
 #include"DxLib.h"
 #include<math.h>
-#include"../Object/Normal.h"
 
 
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL), barrier_image(NULL), image(NULL),item_image(NULL),
-								sound(NULL), mileage(0), player(nullptr), enemy(nullptr), item(nullptr), chara(nullptr)
+								sound(NULL), mileage(0), player(nullptr), enemy(nullptr), item(nullptr), pt(nullptr)
 {
 	int i;
 	for (i = 0; i < 3; i++)
@@ -21,13 +19,9 @@ GameMainScene::~GameMainScene()
 {
 }
 
-int flg;
-
 //初期化処理
 void GameMainScene::Initialize()
 {
-
-	flg = 0;
 
 	//高得点値を読み込む
 	ReadHighScore();
@@ -80,7 +74,7 @@ void GameMainScene::Initialize()
 	item = new Item(item_image);
 	
 	//chara = new Character;
-
+	pt = new Player_T;
 
 	//オブジェクトの初期化
 	player->Initialize();
@@ -103,9 +97,9 @@ eSceneType GameMainScene::Update()
 	PlaySoundMem(sound, DX_PLAYTYPE_LOOP, FALSE);
 
 	//プレイヤーの更新
-	player->Update();
-
-	/*ノーマルタイプの生成
+	//player->Update();
+	pt->Update();
+	/*
 	if (flg == 0)
 	{
 		chara = new Nomal;
@@ -212,6 +206,7 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
+	/*
 	//startボタンでタイトルへ
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
 	{
@@ -224,7 +219,7 @@ eSceneType GameMainScene::Update()
 	{
 		return eSceneType::E_RESULT;
 	}
-
+	*/
 	//プレイヤーの燃料か体力が0未満なら、リザルトに遷移する
 	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
 	{
@@ -247,6 +242,7 @@ void GameMainScene::Draw() const
 	******************************************************/
 
 	//chara->Draw();
+	pt->Draw();
 
 	//敵の描画
 	for (int i = 0; i < 10; i++)
