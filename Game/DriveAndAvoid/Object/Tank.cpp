@@ -22,7 +22,6 @@ void Tank::Initialize()
 	{
 		throw("Resource/images/war_shield_man.png‚ª‚ ‚è‚Ü‚¹‚ñ\n");
 	}
-
 }
 
 void Tank::Update()

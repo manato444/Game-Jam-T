@@ -31,4 +31,6 @@ public:
 	virtual void Update() {};		//XVˆ— 
 	virtual void Draw() {};			//•`‰æˆ— 
 
+	virtual void SetType(int type) {};
+
 };

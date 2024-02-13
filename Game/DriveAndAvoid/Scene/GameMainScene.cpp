@@ -3,7 +3,7 @@
 #include"../Utility/InputControl.h"
 #include"DxLib.h"
 #include<math.h>
-#include"../Object/Normal.h"
+//#include"../Object/Normal.h"
 
 
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL), barrier_image(NULL), image(NULL),item_image(NULL),
@@ -38,7 +38,7 @@ void GameMainScene::Initialize()
 
 	barrier_image = LoadGraph("Resource/images/barrier.png");
 	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image); 
-	item_image = LoadGraph("Resource/images/gasoline.bmp");
+	//item_image = LoadGraph("Resource/images/gasoline.bmp");
 	
 	//Å´è¸ÇË
 	image = LoadGraph("Resource/images/supana.bmp");
