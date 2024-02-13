@@ -67,7 +67,10 @@ void Enemy_T::Move()
 
 void Enemy_T::Draw() const
 {
-	
+	if (Hp < 900)
+	{
+
+	}
 }
 
 

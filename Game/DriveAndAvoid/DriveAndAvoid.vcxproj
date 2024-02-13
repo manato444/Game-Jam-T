@@ -139,6 +139,7 @@
     <ClCompile Include="Object\Kiba.cpp" />
     <ClCompile Include="Object\Nomal.cpp" />
     <ClCompile Include="Object\Player.cpp" />
+    <ClCompile Include="Object\Enemy_T.cpp" />
     <ClCompile Include="Object\Range.cpp" />
     <ClCompile Include="Object\RankingData.cpp" />
     <ClCompile Include="Object\Tank.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Object\Item.h" />
     <ClInclude Include="Object\Kiba.h" />
     <ClInclude Include="Object\Normal.h" />
+    <ClCompile Include="Object\Enemy_T.h" />
     <ClInclude Include="Object\Player.h" />
     <ClInclude Include="Object\Range.h" />
     <ClInclude Include="Object\RankingData.h" />
