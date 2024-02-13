@@ -7,7 +7,7 @@
 
 
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL), barrier_image(NULL), image(NULL),item_image(NULL),
-								sound(NULL), mileage(0), player(nullptr), enemy(nullptr), item(nullptr)
+								sound(NULL), mileage(0), player(nullptr), enemy(nullptr), item(nullptr), chara(nullptr)
 {
 	int i;
 	//item_image[i] = NULL;
@@ -107,7 +107,7 @@ eSceneType GameMainScene::Update()
 	//ƒvƒŒƒCƒ„[‚ÌXV
 	player->Update();
 
-	/*
+	/*ƒm[ƒ}ƒ‹ƒ^ƒCƒv‚Ì¶¬
 	if (flg == 0)
 	{
 		chara = new Nomal;
@@ -243,9 +243,12 @@ void GameMainScene::Draw() const
 	DrawGraph(0, mileage % 480 - 480, back_ground, TRUE);
 	DrawGraph(0, mileage % 480, back_ground, TRUE);
 
-	
-	//chara->Draw();
+	/*********”wŒi‰æ‘œ‚Ì•`‰æ(‰¡ƒXƒNƒ[ƒ‹)****************
+	DrawGraph(mileage % 480 - 480, 0, back_ground, TRUE);
+	DrawGraph(mileage % 480, 0, back_ground, TRUE);
+	******************************************************/
 
+	//chara->Draw();
 
 	//“G‚Ì•`‰æ
 	for (int i = 0; i < 10; i++)

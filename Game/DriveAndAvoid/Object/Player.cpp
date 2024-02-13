@@ -272,7 +272,6 @@ float Player::SetLeft_Stick_Y()
 //ˆÚ“®ˆ—
 void Player::Movement()
 {
-	float x, y;
 
 	Vector2D move = Vector2D(0.0f, 0.0f);
 	angle = 0.0f;

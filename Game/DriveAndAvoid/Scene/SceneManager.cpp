@@ -61,7 +61,6 @@ void SceneManager::Update()
 	while (ProcessMessage() != -1)
 	{
 
-
 		//Œ»İŠÔ‚ğæ“¾
 		LONGLONG now_time = GetNowHiPerformanceCount();
 
