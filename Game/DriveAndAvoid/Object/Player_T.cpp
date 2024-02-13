@@ -6,7 +6,7 @@
 float Player_T::stick2[2] = {};
 Vector2D Player_T::stick[2] = {};
 
-Player_T::Player_T() : Hp(0), Cursor(0)
+Player_T::Player_T() : Hp(0), Cursor(0), is_Pause(false)
 {
 	chara = new Character * [_MAX_CHARACTOR_];
 	for (int i = 0; i < _MAX_CHARACTOR_; i++)
@@ -32,12 +32,12 @@ void Player_T::Update()
 	InputControlUi();
 
 	//操作不可状態であれば、自身を回転させる
-	if (!is_Pause)
+	if (is_Pause)
 	{
 		//もう一度Startボタンを押すと、Pause解除
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
 		{
-			is_Pause = true;
+			is_Pause = false;
 		}
 		return;
 	}
@@ -49,6 +49,7 @@ void Player_T::Update()
 			break;
 		}
 
+		chara[charaCount]->SetType(1);
 		chara[charaCount]->Update();
 	}
 }
@@ -104,7 +105,7 @@ void Player_T::InputControlUi()
 		//STARTボタンでPause
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
 		{
-			is_Pause = false;
+			is_Pause = true;
 		}
 
 		//十字移動処理
