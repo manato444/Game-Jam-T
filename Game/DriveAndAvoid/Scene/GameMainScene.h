@@ -4,7 +4,7 @@
 #include"../Object/Player.h"
 #include"../Object/Enemy.h"
 #include"../Object/Item.h"
-#include"../Object/Character.h"
+#include"../Object/Player_T.h"
 
 
 class GameMainScene : public SceneBase
@@ -20,8 +20,8 @@ private:
 	Player* player;		 //プレイヤー
 	Enemy** enemy;		 //敵
 
-	Character* chara;
-
+	//Character* chara;
+	Player_T* pt;
 
 	Item* item;		//アイテム
 	int item_image;	//アイテム画像

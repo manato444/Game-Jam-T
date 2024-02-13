@@ -1,4 +1,3 @@
-#include"Character.h"
 #include"Normal.h"
 #include"DxLib.h"
 
