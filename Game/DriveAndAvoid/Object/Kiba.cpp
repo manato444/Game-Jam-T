@@ -8,6 +8,7 @@ Kiba::Kiba() : hp(NULL), power(NULL), graphic(NULL), type(NULL), Playerlocation(
 
 Kiba::~Kiba()
 {
+	DeleteGraph(graphic);
 }
 
 void Kiba::Initialize()

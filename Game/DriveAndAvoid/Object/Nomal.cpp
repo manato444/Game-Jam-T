@@ -7,6 +7,7 @@ Nomal::Nomal() : hp(NULL), power(NULL), graphic(NULL), type(NULL), Playerlocatio
 
 Nomal::~Nomal()
 {
+	DeleteGraph(graphic);
 }
 
 void Nomal::Initialize()

@@ -8,6 +8,7 @@ Range::Range() : hp(NULL), power(NULL), graphic(NULL), type(NULL), Playerlocatio
 
 Range::~Range()
 {
+	DeleteGraph(graphic);
 }
 
 void Range::Initialize()

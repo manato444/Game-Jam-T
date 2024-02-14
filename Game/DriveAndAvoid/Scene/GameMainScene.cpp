@@ -113,6 +113,8 @@ eSceneType GameMainScene::Update()
 	ui->SetCursor(pt->GetCursor());
 
 	ui->SetMoney(pt->GetMoney(), pt->GetMaxMoney());
+
+	ui->SetEx(pt->GetExPoint(), pt->GetMaxExPoint());
 	/*
 	if (flg == 0)
 	{
@@ -307,6 +309,9 @@ void GameMainScene::Finalize()
 	//動的確保したオブジェクトを削除する
 	player->Finalize();
 	delete player;
+
+	pt->Finalize();
+	delete pt;
 
 	/*for (int i = 0; i < 10; i++)
 	{
