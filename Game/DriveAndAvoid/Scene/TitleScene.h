@@ -11,6 +11,10 @@ private:
 	int menu_cursor;		//メニューカーソル番号
 	int sound;
 
+	int start_image;
+	int help_image;
+	int end_image;
+
 public:
 
 	TitleScene();

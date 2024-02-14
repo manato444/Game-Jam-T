@@ -19,17 +19,26 @@ void TitleScene::Initialize()
 
 	
 	//画像の読み込み
-	background_image = LoadGraph("Resource/images/Title.bmp");
+	//background_image = LoadGraph("Resource/images/Title.bmp");
 	//background_image = LoadGraph("Resource/images/End.bmp");
+	background_image = LoadGraph("Resource/images/Title_1.png");
 
-	menu_image = LoadGraph("Resource/images/menu.bmp");
+
+	//menu_image = LoadGraph("Resource/images/menu.bmp");
+
+	start_image = LoadGraph("Resource/images/start_m.bmp");
+	help_image = LoadGraph("Resource/images/help_m.bmp");
+	end_image = LoadGraph("Resource/images/end_m.bmp");
+
+
+
 	cursor_image = LoadGraph("Resource/images/cone.bmp");
 
 	//効果音
 	sound = LoadSoundMem("Resource/sound/engine.mp3");
 
-	GraphFilter(menu_image, DX_GRAPH_FILTER_HSB, 0, 1, 0, 0);
-	GraphFilter(background_image, DX_GRAPH_FILTER_LEVEL, 30, 210, 120, 0, 255);
+	//GraphFilter(menu_image, DX_GRAPH_FILTER_HSB, 0, 1, 11, 1);
+	//GraphFilter(background_image, DX_GRAPH_FILTER_LEVEL, 30, 210, 120, 0, 255);
 
 	//エラーチェック
 	if (background_image == -1)
@@ -64,7 +73,7 @@ eSceneType TitleScene::Update()
 		}
 		flg = FALSE;
 		//1番下に到達したら、一番上にする
-		if (menu_cursor > 3)
+		if (menu_cursor > 2)
 		{
 			menu_cursor = 0;
 		}
@@ -78,7 +87,7 @@ eSceneType TitleScene::Update()
 		//1番上に到達したら、一番下にする
 		if (menu_cursor < 0)
 		{
-			menu_cursor = 3;
+			menu_cursor = 2;
 		}
 	}
 
@@ -92,8 +101,6 @@ eSceneType TitleScene::Update()
 		case 0:
 			return eSceneType::E_MAIN;
 		case 1:
-			return eSceneType::E_RANKING_DISP;
-		case 2:
 			return eSceneType::E_HELP;
 		default:
 			return eSceneType::E_END;
@@ -108,17 +115,21 @@ eSceneType TitleScene::Update()
 //描画処理
 void TitleScene::Draw() const
 {
-	//メニューチカチカ～
-	GraphFilter(menu_image, DX_GRAPH_FILTER_HSB, 0, 2, 3, 5);
+	//メニュー虹色
+	//GraphFilter(menu_image, DX_GRAPH_FILTER_HSB, 0, 2, 3, 5);
 
 	//タイトル画像の描画
 	DrawGraph(0, 0, background_image, FALSE);
 
 	//メニュー画像の描画
-	DrawGraph(120, 200, menu_image, TRUE);
+	//DrawGraph(120, 200, menu_image, TRUE);
+
+	DrawGraph(65, 223, start_image, TRUE);
+	DrawGraph(48, 253, help_image, TRUE);
+	DrawGraph(25, 285, end_image, TRUE);
 
 	//カーソル画像の描画
-	DrawRotaGraph(90, 220 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image, TRUE);
+	DrawRotaGraph(40, 240 + menu_cursor * 33, 0.7, DX_PI / 2.0, cursor_image, TRUE);
 
 	//DrawGraph(20, 300, menu_image, TRUE);
 	//DrawRotaGraph(250, 320 + menu_cursor * 40, 0.7, DX_PI / -2.0, cursor_image, TRUE);

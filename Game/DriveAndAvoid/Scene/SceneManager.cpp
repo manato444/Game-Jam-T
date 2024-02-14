@@ -22,7 +22,8 @@ void SceneManager::Initialize()
 {
 
 	//ウィンドウのタイトルを設定
-	SetMainWindowText("Drive&Avoid　ドライブ＆アボイド");
+	//SetMainWindowText("Drive&Avoid　ドライブ＆アボイド");
+	SetMainWindowText("いらすとや戦争");
 
 	//ウィンドウサイズを手動で変更できる
 	SetWindowSizeChangeEnableFlag(TRUE, TRUE);
