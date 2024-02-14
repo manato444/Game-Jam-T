@@ -31,6 +31,10 @@ private:
 
 	int sound; //BGM
 	int image;	//ü‚è(?)
+	int MaxMoney[5] = {100,150,200,250,300};
+	int Money;
+	int Level;
+	int Count;
 
 public:
 	GameMainScene();
@@ -51,5 +55,7 @@ private:
 	//“–‚½‚è”»’è
 	bool IsHitCheck(Player* p, Enemy* e);
 	bool IsHitCheck(Player* p, Item* i);
+
+	void MoneyManager();
 };
 

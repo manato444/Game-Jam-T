@@ -211,3 +211,16 @@ void Player_T::SetExPoint(int point)
 	this->ExPoint += point;
 
 }
+
+void Player_T::ExManager()
+{
+	if (ExPoint <= 0)
+	{
+		ExPoint = MaxExPoint[Level];
+
+	}
+	else
+	{
+
+	}
+}
