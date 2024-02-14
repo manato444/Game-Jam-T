@@ -101,6 +101,7 @@ eSceneType GameMainScene::Update()
 	//プレイヤーの更新
 	//player->Update();
 	pt->Update();
+
 	/*
 	if (flg == 0)
 	{

@@ -29,6 +29,7 @@ public:
 	virtual void Update() override;
 
 
-	void SetType(int type) { this->type = type; }
+	//void SetType(int type) { this->type = type; }
+	virtual void  SetType(int type) override;
 
 };

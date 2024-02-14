@@ -50,3 +50,8 @@ void Tank::Draw()
 		DrawRotaGraph(location.x, location.y, 0.3, 0.0, graphic, TRUE, TRUE);
 	}
 }
+
+void Tank::SetType(int type)
+{
+	this->type = type;
+}
