@@ -107,6 +107,15 @@ void Enemy_T::Draw() const
 
 void Enemy_T::Finalize()
 {
+	for (int i = 0; i < _MAX_CHARACTOR_; i++)
+	{
+		if (chara[i] != nullptr)
+		{
+			delete chara[i];
+		}
+
+		chara[i] = nullptr;
+	}
 }
 
 void Enemy_T::EnemyCastleHp(float Attack)

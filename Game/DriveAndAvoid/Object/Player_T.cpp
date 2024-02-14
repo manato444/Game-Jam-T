@@ -2,6 +2,9 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 #include "Normal.h"
+#include "Tank.h"
+#include "Range.h"
+#include "Kiba.h"
 
 float Player_T::stick2[2] = {};
 Vector2D Player_T::stick[2] = {};
@@ -123,10 +126,10 @@ void Player_T::InputControlUi()
 	{
 
 		//STARTÉ{É^ÉìÇ≈Pause
-		if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
+		/*if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
 		{
 			is_Pause = true;
-		}
+		}*/
 
 		//è\éöà⁄ìÆèàóù
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_LEFT))
@@ -202,8 +205,7 @@ void Player_T::InputControlUi()
 		{
 			if (charaCount < _MAX_CHARACTOR_ && chara[charaCount] == nullptr)
 			{
-				chara[charaCount] = new Nomal;
-				chara[charaCount]->Initialize();
+				PopCharactor();
 			}
 		}
 	}
@@ -254,4 +256,28 @@ void Player_T::MoneyManager()
 		Money += 2;
 	}
 
+}
+
+void Player_T::PopCharactor()
+{
+	if (Cursor == 0)
+	{
+		chara[charaCount] = new Nomal;
+		chara[charaCount]->Initialize();
+	}
+	else if (Cursor == 1)
+	{
+		chara[charaCount] = new Tank;
+		chara[charaCount]->Initialize();
+	}
+	else if (Cursor == 2)
+	{
+		chara[charaCount] = new Range;
+		chara[charaCount]->Initialize();
+	}
+	else if (Cursor == 3)
+	{
+		chara[charaCount] = new Kiba;
+		chara[charaCount]->Initialize();
+	}
 }
