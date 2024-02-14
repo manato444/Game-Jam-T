@@ -227,18 +227,14 @@ void Player_T::SetExPoint(int point)
 
 void Player_T::ExManager()
 {
-	if (Level == 4 && ExPoint <= 0)
-	{
-
-	}
-	else if (ExPoint <= 0)
+	if (Level == 4 && ExPoint > MaxExPoint[Level])
 	{
 		ExPoint = MaxExPoint[Level];
-		Level++;
 	}
-	else
+	else if (ExPoint >= MaxExPoint[Level])
 	{
-
+		ExPoint = ExPoint - MaxExPoint[Level];
+		Level++;
 	}
 }
 

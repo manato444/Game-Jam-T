@@ -2,13 +2,16 @@
 #pragma once
 
 #include"Character.h"
+#include "UI_T.h"
 
 //範囲攻撃キャラ_子クラス
 class Range : public Character
 {
 private:
 
-	Vector2D location;
+	Vector2D Playerlocation;
+	Vector2D Enemylocation;
+	UI_T* ui;
 
 	float hp;		//体力
 	float power;	//攻撃力
