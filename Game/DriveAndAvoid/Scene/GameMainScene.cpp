@@ -38,13 +38,17 @@ void GameMainScene::Initialize()
 	//↓飾り
 	image = LoadGraph("Resource/images/supana.bmp");
 
-	//BGM(気分で変える)
+	//(レースゲーム用)
 	//sound = LoadSoundMem("Resource/sound/BreakItDown.mp3");
 	//sound = LoadSoundMem("Resource/sound/HappyMoment.mp3");
-	sound = LoadSoundMem("Resource/sound/LoveAndGold.mp3");
+	//sound = LoadSoundMem("Resource/sound/LoveAndGold.mp3");
+
+	//BGM(ゲームジャム用)
+	sound = LoadSoundMem("Resource/sound/BGM1.mp3");
+
 
 	//ボリューム（BGM）
-	ChangeVolumeSoundMem(255 * 70 / 100, sound);
+	ChangeVolumeSoundMem(255 * 50 / 100, sound);
 
 	//背景（地面）のフィルター
 	GraphFilter(back_ground, DX_GRAPH_FILTER_LEVEL, 35, 210, 120, 0, 255);
