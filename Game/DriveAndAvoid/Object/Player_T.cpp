@@ -2,6 +2,9 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 #include "Normal.h"
+#include"Tank.h"
+#include"Kiba.h"
+#include"Range.h"
 
 float Player_T::stick2[2] = {};
 Vector2D Player_T::stick[2] = {};
