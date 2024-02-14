@@ -1,7 +1,7 @@
 #include "UI_T.h"
 #include "DxLib.h"
 
-UI_T::UI_T() : Money(0), MaxMoney(0),Level(0),Cursor(0),Green(NULL),Siro(NULL)
+UI_T::UI_T() : Money(0), MaxMoney(0),Level(0),Cursor(0),Ex(0),MaxExPoint(0),Green(NULL),Siro(NULL)
 {
 
 }
@@ -46,6 +46,9 @@ void UI_T::Draw()const{
 	DrawFormatString(40, 20, 0xff0000, "Money %06d / %06d", this->Money, this->MaxMoney);
 
 	DrawFormatString(40, 40, 0xff0000, "Level %04d", this->Level);
+
+	DrawFormatString(40, 60, 0xff0000, "Exp %04d /Next %04d", this->Ex, this->MaxExPoint);
+
 }
 
 void UI_T::Finalize() {
@@ -63,6 +66,11 @@ void UI_T::SetLevel(int Level) {
 
 void UI_T::SetCursor(int cursor) {
 	this->Cursor = cursor;
+}
+
+void UI_T::SetEx(int Ex, int MaxExPoint){
+	this->Ex = Ex;
+	this->MaxExPoint = MaxExPoint;
 }
 
 Vector2D UI_T::GetPlayerSiro() {

@@ -9,6 +9,8 @@ private:
 	int Green;
 	int Siro;
 	int Cursor;
+	int Ex;
+	int MaxExPoint;
 public:
 	UI_T();
 	~ UI_T();
@@ -20,6 +22,7 @@ public:
 	void SetMoney(int Money, int MaxMoney);
 	void SetLevel(int Level);
 	void SetCursor(int cursor);
+	void SetEx(int Ex, int MaxExPoint);
 
 	Vector2D GetPlayerSiro();
 	Vector2D GetEnemySiro();
