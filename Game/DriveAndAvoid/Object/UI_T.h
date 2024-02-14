@@ -11,6 +11,10 @@ private:
 	int Cursor;
 	int Ex;
 	int MaxExPoint;
+	int NormalMan;
+	int ShieldMan;
+	int RangeMan;
+	int CarMan;
 public:
 	UI_T();
 	~ UI_T();

@@ -53,6 +53,8 @@ void Player_T::Update()
 		chara[charaCount]->Update();
 	}
 
+	ExManager();
+
 	if (Count >= 50)
 	{
 		MoneyManager();

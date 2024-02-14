@@ -108,6 +108,8 @@ eSceneType GameMainScene::Update()
 	ui->SetCursor(pt->GetCursor());
 
 	ui->SetMoney(pt->GetMoney(), pt->GetMaxMoney());
+
+	ui->SetEx(pt->GetExPoint(), pt->GetMaxExPoint());
 	/*
 	if (flg == 0)
 	{
