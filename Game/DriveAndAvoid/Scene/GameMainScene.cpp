@@ -306,6 +306,9 @@ void GameMainScene::Finalize()
 	player->Finalize();
 	delete player;
 
+	pt->Finalize();
+	delete pt;
+
 	/*for (int i = 0; i < 10; i++)
 	{
 		if (enemy[i] != nullptr)

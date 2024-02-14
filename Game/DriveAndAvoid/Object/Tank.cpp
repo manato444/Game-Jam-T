@@ -8,6 +8,7 @@ Tank::Tank() : hp(NULL), power(NULL), graphic(NULL), type(NULL),Playerlocation(0
 
 Tank::~Tank()
 {
+	DeleteGraph(graphic);
 }
 
 void Tank::Initialize()

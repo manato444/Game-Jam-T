@@ -82,7 +82,15 @@ void Player_T::Draw() const
 
 void Player_T::Finalize()
 {
-
+	//キャラに画像が入っていたら
+	for (int i = 0; i < _MAX_CHARACTOR_; i++)
+	{
+		if (chara[i] != nullptr)
+		{
+			delete chara[i];
+			chara[i] = nullptr;
+		}
+	}
 }
 
 //左スティックの値をセット
