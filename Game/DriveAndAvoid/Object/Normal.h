@@ -1,8 +1,8 @@
 #pragma once
 
-#include"../Utility/Vector2D.h"
 #include"Character.h"
 
+//ノーマルキャラ_子クラス
 class Nomal : public Character
 {
 private:
@@ -15,6 +15,9 @@ private:
 	//画像データ格納
 	int graphic;
 
+	//敵かプレイヤーか{ 1:プレイヤー, 2: 敵 }
+	int type;
+
 public:
 
 	Nomal();
@@ -23,5 +26,7 @@ public:
 	virtual void Initialize() override;
 	virtual void Draw() override;
 	virtual void Update() override;
+
+	virtual void  SetType(int type) override;
 
 };

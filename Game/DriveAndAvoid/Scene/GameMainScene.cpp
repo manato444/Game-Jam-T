@@ -1,21 +1,17 @@
 #include"GameMainScene.h"
 #include"../Object/RankingData.h"
-#include"../Utility/InputControl.h"
 #include"DxLib.h"
 #include<math.h>
-#include"../Object/Normal.h"
 
 
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL), barrier_image(NULL), image(NULL),item_image(NULL),
-								sound(NULL), mileage(0), player(nullptr), enemy(nullptr), item(nullptr)
+								sound(NULL), mileage(0), player(nullptr), enemy(nullptr), item(nullptr), pt(nullptr), ui(nullptr)
 {
 	int i;
-	//item_image[i] = NULL;
 	for (i = 0; i < 3; i++)
 	{
 		enemy_image[i] = NULL;
 		enemy_count[i] = NULL;
-		//item_count[i] = NULL;
 	}
 }
 
@@ -23,13 +19,9 @@ GameMainScene::~GameMainScene()
 {
 }
 
-int flg;
-
 //初期化処理
 void GameMainScene::Initialize()
 {
-
-	flg = 0;
 
 	//高得点値を読み込む
 	ReadHighScore();
@@ -40,7 +32,7 @@ void GameMainScene::Initialize()
 
 	barrier_image = LoadGraph("Resource/images/barrier.png");
 	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image); 
-	item_image = LoadGraph("Resource/images/gasoline.bmp");
+	//item_image = LoadGraph("Resource/images/gasoline.bmp");
 	
 	//↓飾り
 	image = LoadGraph("Resource/images/supana.bmp");
@@ -81,8 +73,10 @@ void GameMainScene::Initialize()
 	enemy = new Enemy* [10];
 	item = new Item(item_image);
 	
-	//chara = new Character;
+	ui = new UI_T;
 
+	//chara = new Character;
+	pt = new Player_T;
 
 	//オブジェクトの初期化
 	player->Initialize();
@@ -105,7 +99,8 @@ eSceneType GameMainScene::Update()
 	PlaySoundMem(sound, DX_PLAYTYPE_LOOP, FALSE);
 
 	//プレイヤーの更新
-	player->Update();
+	//player->Update();
+	pt->Update();
 
 	/*
 	if (flg == 0)
@@ -214,6 +209,7 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
+	/*
 	//startボタンでタイトルへ
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
 	{
@@ -226,7 +222,7 @@ eSceneType GameMainScene::Update()
 	{
 		return eSceneType::E_RESULT;
 	}
-
+	*/
 	//プレイヤーの燃料か体力が0未満なら、リザルトに遷移する
 	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
 	{
@@ -243,9 +239,15 @@ void GameMainScene::Draw() const
 	DrawGraph(0, mileage % 480 - 480, back_ground, TRUE);
 	DrawGraph(0, mileage % 480, back_ground, TRUE);
 
-	
-	//chara->Draw();
+	/*********背景画像の描画(横スクロール)****************
+	DrawGraph(mileage % 480 - 480, 0, back_ground, TRUE);
+	DrawGraph(mileage % 480, 0, back_ground, TRUE);
+	******************************************************/
 
+	//chara->Draw();
+	pt->Draw();
+
+	ui->Draw();
 
 	//敵の描画
 	for (int i = 0; i < 10; i++)
@@ -264,63 +266,6 @@ void GameMainScene::Draw() const
 			item->Draw();
 		}
 	}
-	
-	//プレイヤーの描画
-	player->Draw();
-
-	//UIの描画
-	DrawBox(500, 0, 640, 480, GetColor(0, 0, 250), TRUE);	//右側の青い部分
-
-	DrawBox(500, 0, 640, 70, GetColor(255, 255, 255), TRUE);	//ハイスコア表示領域
-	DrawBox(500, 10, 640, 60, GetColor(100, 100, 100), TRUE);	//　　　;;
-
-	DrawGraph(580, 338, image, TRUE);	//飾り
-
-
-	SetFontSize(16);
-	DrawFormatString(510, 20, GetColor(0, 0, 0), "ハイスコア");
-	DrawFormatString(560, 40, GetColor(255, 255, 255), "%08d", high_score);
-	DrawFormatString(510, 80, GetColor(0, 0, 0), "避けた数");
-
-	for (int i = 0; i < 3; i++)
-	{
-		DrawRotaGraph(523 + (i * 50), 120, 0.3, 0, enemy_image[i], TRUE, FALSE);
-		DrawFormatString(510 + (i * 50), 140, GetColor(255, 255, 255), "%03d", enemy_count[i]);
-	}
-	DrawFormatString(510, 200, GetColor(0, 0, 0), "走行距離");
-	DrawFormatString(555, 220, GetColor(255, 255, 255), "%08d", mileage / 10);
-	DrawFormatString(510, 240, GetColor(0, 0, 0), "スピード");
-	DrawFormatString(555, 260, GetColor(255, 255, 255), "%08.1f", player->GetSpeed());
-	
-	DrawFormatString(510, 280, GetColor(0, 0, 0), "バリア");
-
-	/*STARTボタンでタイトルへ
-	SetFontSize(15);
-	DrawFormatString(510, 340, 0xf6ff00, "'START'");
-	DrawFormatString(510, 360, 0xf6ff00, "'タイトルへ戻る'");
-	*/
-
-	//バリア枚数の描画
-	for (int i = 0; i < player->GetBarrierCount(); i++)
-	{
-		DrawRotaGraph(520 + i * 25, 320, 0.2f, 0, barrier_image, TRUE, FALSE);
-	}
-
-	//燃料ゲージの描画
-	float fx = 510.0f;
-	float fy = 390.0f;
-	DrawFormatStringF(fx, fy, GetColor(0, 0, 0), "FUEL METER");
-	DrawBoxAA(fx, fy + 20.0f, fx + (player->GetFuel() * 100 / player->SetFuel()), fy + 40.0f,
-			  GetColor(0, 230, 0), TRUE);
-	DrawBoxAA(fx, fy + 20.0f, fx + 100.0f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
-	
-	//体力ゲージの描画
-	fx = 510.0f;
-	fy = 430.0f;
-	DrawFormatStringF(fx, fy, GetColor(0, 0, 0), "PLAYER HP");
-	DrawBoxAA(fx, fy + 20.0f, fx + (player->GetHp() * 100 / 1000), fy + 40.0f,
-		GetColor(255, 0, 0), TRUE);
-	DrawBoxAA(fx, fy + 20.0f, fx + 100.0f, fy + 40.0f, GetColor(0, 0, 0), FALSE);
 
 }
 

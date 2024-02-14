@@ -2,7 +2,7 @@
 #include"DxLib.h"
 #include"Tank.h"
 
-Tank::Tank() : hp(NULL), power(NULL), location(0.0f)
+Tank::Tank() : hp(NULL), power(NULL), graphic(NULL), type(NULL),location(0.0f)
 {
 }
 
@@ -17,18 +17,41 @@ void Tank::Initialize()
 
 	graphic = LoadGraph("Resource/images/war_shield_man.png");
 
+	//エラーチェック
 	if (graphic == -1)
 	{
 		throw("Resource/images/war_shield_man.pngがありません\n");
 	}
-
 }
 
 void Tank::Update()
 {
+	//移動処理
+	if (type == 1)
+	{
+		Vector2D move = Vector2D(1.0f, 0.0f);
+		location += move;
+	}
+	else if (type == 2)
+	{
+		Vector2D move = Vector2D(-1.0f, 0.0f);
+		location += move;
+	}
 }
 
 void Tank::Draw()
 {
-	DrawRotaGraph(location.x, location.y, 0.3, 0.0, graphic, TRUE);
+	if (type == 1)
+	{
+		DrawRotaGraph(location.x, location.y, 0.3, 0.0, graphic, TRUE);
+	}
+	else if (type == 2)
+	{
+		DrawRotaGraph(location.x, location.y, 0.3, 0.0, graphic, TRUE, TRUE);
+	}
+}
+
+void Tank::SetType(int type)
+{
+	this->type = type;
 }

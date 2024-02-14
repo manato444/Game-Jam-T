@@ -139,6 +139,7 @@
     <ClCompile Include="Object\Kiba.cpp" />
     <ClCompile Include="Object\Nomal.cpp" />
     <ClCompile Include="Object\Player.cpp" />
+    <ClCompile Include="Object\Player_T.cpp" />
     <ClCompile Include="Object\Enemy_T.cpp" />
     <ClCompile Include="Object\Range.cpp" />
     <ClCompile Include="Object\RankingData.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="Scene\ResultScene.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\TitleScene.cpp" />
+    <ClCompile Include="Object\UI_T.cpp" />
     <ClCompile Include="Utility\InputControl.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +163,7 @@
     <ClInclude Include="Object\Normal.h" />
     <ClCompile Include="Object\Enemy_T.h" />
     <ClInclude Include="Object\Player.h" />
+    <ClInclude Include="Object\Player_T.h" />
     <ClInclude Include="Object\Range.h" />
     <ClInclude Include="Object\RankingData.h" />
     <ClInclude Include="Object\Tank.h" />
@@ -172,6 +175,7 @@
     <ClInclude Include="Scene\SceneBase.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\TitleScene.h" />
+    <ClInclude Include="Object\UI_T.h" />
     <ClInclude Include="Utility\InputControl.h" />
     <ClInclude Include="Utility\Vector2D.h" />
   </ItemGroup>

@@ -2,6 +2,7 @@
 
 #include"Character.h"
 
+//タンクキャラ_子クラス
 class Tank : public Character
 {
 private:
@@ -14,6 +15,9 @@ private:
 	//画像データ格納
 	int graphic;
 
+	//敵かプレイヤーか{ 1:プレイヤー, 2: 敵 }
+	int type;
+
 public:
 
 	Tank();
@@ -22,5 +26,9 @@ public:
 	virtual void Initialize() override;
 	virtual void Draw() override;
 	virtual void Update() override;
+
+
+	//void SetType(int type) { this->type = type; }
+	virtual void  SetType(int type) override;
 
 };

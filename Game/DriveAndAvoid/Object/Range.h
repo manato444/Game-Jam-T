@@ -3,6 +3,7 @@
 
 #include"Character.h"
 
+//範囲攻撃キャラ_子クラス
 class Range : public Character
 {
 private:
@@ -16,6 +17,9 @@ private:
 	//画像データ格納
 	int graphic;
 
+	//敵かプレイヤーか{ 1:プレイヤー, 2: 敵 }
+	int type;
+
 public:
 
 	Range();
@@ -24,5 +28,8 @@ public:
 	virtual void Initialize() override;
 	virtual void Draw() override;
 	virtual void Update() override;
+
+	//void SetType(int type) { this->type = type; }
+	virtual void  SetType(int type) override;
 
 };

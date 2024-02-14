@@ -4,7 +4,8 @@
 #include"../Object/Player.h"
 #include"../Object/Enemy.h"
 #include"../Object/Item.h"
-#include"../Object/Character.h"
+#include"../Object/Player_T.h"
+#include"../Object/UI_T.h"
 
 
 class GameMainScene : public SceneBase
@@ -17,18 +18,16 @@ private:
 	int mileage;		 //走行距離
 	int enemy_image[3];	 //敵画像
 	int enemy_count[3];	 //通り過ぎた敵カウント
+
 	Player* player;		 //プレイヤー
 	Enemy** enemy;		 //敵
 
-	Character* chara;
-
+	//Character* chara;
+	UI_T* ui;
+	Player_T* pt;
 
 	Item* item;		//アイテム
 	int item_image;	//アイテム画像
-
-
-
-	//int item_count[1];	//アイテム追加したら多分使う
 
 	int sound; //BGM
 	int image;	//飾り(?)
@@ -52,9 +51,5 @@ private:
 	//当たり判定
 	bool IsHitCheck(Player* p, Enemy* e);
 	bool IsHitCheck(Player* p, Item* i);
-
-
-
-
 };
 
