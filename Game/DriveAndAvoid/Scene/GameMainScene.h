@@ -2,7 +2,7 @@
 
 #include"SceneBase.h"
 #include"../Object/Player.h"
-#include"../Object/Enemy.h"
+#include"../Object/Enemy_T.h"
 #include"../Object/Item.h"
 #include"../Object/Player_T.h"
 #include"../Object/UI_T.h"
@@ -20,7 +20,7 @@ private:
 	int enemy_count[3];	 //通り過ぎた敵カウント
 
 	Player* player;		 //プレイヤー
-	Enemy** enemy;		 //敵
+	Enemy_T* enemy;		 //敵
 
 	//Character* chara;
 	UI_T* ui;
@@ -49,7 +49,7 @@ private:
 	void ReadHighScore();
 
 	//当たり判定
-	bool IsHitCheck(Player* p, Enemy* e);
+	bool IsHitCheck(Player* p, Enemy_T* e);
 	bool IsHitCheck(Player* p, Item* i);
 };
 

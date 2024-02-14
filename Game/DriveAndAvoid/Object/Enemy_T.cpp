@@ -1,16 +1,17 @@
 #include "Enemy_T.h"
 #include "DxLib.h"
-
-enum Enemy
-{
- enemy1,
- enemy2,
- enemy3,
- enemy4
-};
+#include "Normal.h"
+#include "Tank.h"
+#include "Range.h"
+#include "Kiba.h"
 
 Enemy_T::Enemy_T() : Hp(0)
 {
+	chara = new Character * [_MAX_CHARACTOR_];
+	for (int i = 0; i < _MAX_CHARACTOR_; i++)
+	{
+		chara[i] = nullptr;
+	}
 }
 
 Enemy_T::~Enemy_T()
@@ -22,9 +23,10 @@ void Enemy_T::Initialize()
 {
 	Hp = 1000;
 	enemy_popcount = 0;
+	charaCount = 0;
 }
 
-void Enemy_T::Update(float speed)
+void Enemy_T::Update()
 {
 	if (enemy_popcount >= 50)
 	{
@@ -35,6 +37,17 @@ void Enemy_T::Update(float speed)
 	{
 		enemy_popcount++;
 	}
+
+	for (charaCount = 0; charaCount < _MAX_CHARACTOR_; charaCount++)
+	{
+		if (chara[charaCount] == nullptr)
+		{
+			break;
+		}
+
+		chara[charaCount]->SetType(1);
+		chara[charaCount]->Update();
+	}
 }
 
 void Enemy_T::randomchar()
@@ -43,44 +56,51 @@ void Enemy_T::randomchar()
 
 	if (num <= 50)
 	{
-		enemy1;
+		if (charaCount < _MAX_CHARACTOR_ && chara[charaCount] == nullptr)
+		{
+			chara[charaCount] = new Nomal;
+			chara[charaCount]->Initialize();
+		}
 	}
 	else if (num <= 70)
 	{
-		enemy2;
+		if (charaCount < _MAX_CHARACTOR_ && chara[charaCount] == nullptr)
+		{
+			chara[charaCount] = new Tank;
+			chara[charaCount]->Initialize();
+		}
 	}
 	else if (num <= 80)
 	{
-		enemy3;
+		if (charaCount < _MAX_CHARACTOR_ && chara[charaCount] == nullptr)
+		{
+			chara[charaCount] = new Range;
+			chara[charaCount]->Initialize();
+		}
 	}
 	else
 	{
-		enemy4;
+		if (charaCount < _MAX_CHARACTOR_ && chara[charaCount] == nullptr)
+		{
+			chara[charaCount] = new Kiba;
+			chara[charaCount]->Initialize();
+		}
 	}
 
-}
-
-void Enemy_T::Move()
-{
-	
 }
 
 void Enemy_T::Draw() const
 {
-	int Normal;
-	int tank;
-	int Range;
-	int Kiba;
+	for (int i = 0; i < _MAX_CHARACTOR_; i++)
+	{
+		if (chara[i] == nullptr)
+		{
+			break;
+		}
+		chara[i]->Draw();
+	}
 
-	Normal = LoadGraph("Resouce/images/walking2_man.png");
-	tank = LoadGraph("Resouce/images/war_shield_man.png");
-	Range = LoadGraph("Resouce/images/Range.png");
-	Kiba = LoadGraph("Resouce/images/kiba.png");
-
-	DrawTurnGraph(0, 0, Normal, TRUE);
-	DrawTurnGraph(0, 0, tank, TRUE);
-	DrawTurnGraph(0, 0, Range, TRUE);
-	DrawTurnGraph(0, 0, Kiba, TRUE);
+	DrawFormatString(20, 20, 0xffffff, "charaCount = %d", this->charaCount);
 }
 
 
@@ -89,9 +109,13 @@ void Enemy_T::Finalize()
 {
 }
 
-
+void Enemy_T::EnemyCastleHp(float Attack)
+{
+	this->Hp -= Attack;
+}
 
 int Enemy_T::GetHp()
 {
 	return Hp;
 }
+
