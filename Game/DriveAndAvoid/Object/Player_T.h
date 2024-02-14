@@ -12,7 +12,7 @@ private:
 	int Cursor;     //カーソル
 	int Level;      //Levelの管理
 	int ExPoint;    //経験値の管理
-
+	int MaxExPoint[4] = { 30,50,70,100 };
 	Character** chara;
 
 	int charaCount;
@@ -49,5 +49,7 @@ private:
 	static float SetLeft_Stick_X();	//左スティックX座標をセット
 	static float SetLeft_Stick_Y();	//左スティックY座標をセット
 	static float SetRight_Stick_X();//右スティックY座標をセット
+
+	void ExManager();
 };
 

@@ -5,7 +5,10 @@
 
 
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL), barrier_image(NULL), image(NULL),item_image(NULL),
-								sound(NULL), mileage(0), player(nullptr), enemy(nullptr), item(nullptr), pt(nullptr), ui(nullptr)
+								sound(NULL), mileage(0), player(nullptr), enemy(nullptr), item(nullptr), pt(nullptr), ui(nullptr),
+	Money(0),Level(0),Count(0)
+
+	
 {
 	int i;
 	for (i = 0; i < 3; i++)
@@ -13,6 +16,7 @@ GameMainScene::GameMainScene() : high_score(0), back_ground(NULL), barrier_image
 		enemy_image[i] = NULL;
 		enemy_count[i] = NULL;
 	}
+	
 }
 
 GameMainScene::~GameMainScene()
@@ -74,6 +78,8 @@ void GameMainScene::Initialize()
 	item = new Item(item_image);
 	
 	ui = new UI_T;
+	ui->Initialize();
+	
 
 	//chara = new Character;
 	pt = new Player_T;
@@ -102,6 +108,18 @@ eSceneType GameMainScene::Update()
 	//player->Update();
 	pt->Update();
 
+	ui->SetCursor(pt->GetCursor());
+
+	if (Count >= 50)
+	{
+		MoneyManager();
+		Count = 0;
+	}
+	else
+	{
+		Count++;
+	}
+	ui->SetMoney(Money, MaxMoney[Level]);
 	/*
 	if (flg == 0)
 	{
@@ -236,8 +254,8 @@ void GameMainScene::Draw() const
 {
 	
 	//背景画像の描画
-	DrawGraph(0, mileage % 480 - 480, back_ground, TRUE);
-	DrawGraph(0, mileage % 480, back_ground, TRUE);
+	/*DrawGraph(0, mileage % 480 - 480, back_ground, TRUE);
+	DrawGraph(0, mileage % 480, back_ground, TRUE);*/
 
 	/*********背景画像の描画(横スクロール)****************
 	DrawGraph(mileage % 480 - 480, 0, back_ground, TRUE);
@@ -245,27 +263,10 @@ void GameMainScene::Draw() const
 	******************************************************/
 
 	//chara->Draw();
-	pt->Draw();
 
 	ui->Draw();
 
-	//敵の描画
-	for (int i = 0; i < 10; i++)
-	{
-		if (enemy[i] != nullptr)
-		{
-			enemy[i]->Draw();
-		}
-	}
-
-	//アイテム描画
-	for (int i = 0; i < 10; i++)
-	{
-		if (item != nullptr)
-		{
-			item->Draw();
-		}
-	}
+	pt->Draw();
 
 }
 
@@ -397,4 +398,12 @@ bool GameMainScene::IsHitCheck(Player* p, Item* i)
 
 	//コリジョンデータより位置情報の差分が小さいなら、ヒット判定とする
 	return ((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
+}
+
+void GameMainScene::MoneyManager()
+{
+	if (MaxMoney[Level] > Money) {
+		Money += 2;
+	}
+
 }
