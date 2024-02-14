@@ -28,7 +28,7 @@ void Enemy_T::Initialize()
 
 void Enemy_T::Update()
 {
-	if (enemy_popcount >= 50)
+	if (enemy_popcount >= 250)
 	{
 		randomchar();
 		enemy_popcount = 0;
@@ -45,7 +45,7 @@ void Enemy_T::Update()
 			break;
 		}
 
-		chara[charaCount]->SetType(1);
+		chara[charaCount]->SetType(2);
 		chara[charaCount]->Update();
 	}
 }
