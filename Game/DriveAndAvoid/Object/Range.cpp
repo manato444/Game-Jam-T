@@ -15,12 +15,12 @@ void Range::Initialize()
 	hp = 500;
 	power = 20;
 
-	graphic = LoadGraph("Resource/images/kiba.png");
+	graphic = LoadGraph("Resource/images/Range.png");
 
 	//エラーチェック
 	if (graphic == -1)
 	{
-		throw("Resource/images/kiba.pngがありません\n");
+		throw("Resource/images/Range.pngがありません\n");
 	}
 }
 
@@ -49,4 +49,9 @@ void Range::Draw()
 	{
 		DrawRotaGraph(location.x, location.y, 0.3, 0.0, graphic, TRUE, TRUE);
 	}
+}
+
+void Range::SetType(int type)
+{
+	this->type = type;
 }

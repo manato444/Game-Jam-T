@@ -42,11 +42,11 @@ void Nomal::Draw()
 {
 	if (type == 1)
 	{
-		DrawRotaGraph(location.x, location.y, 0.3, 0.0, graphic, TRUE);
+		DrawRotaGraph(location.x, location.y, 0.3, 0.0, graphic, TRUE,TRUE);
 	}
 	else if (type == 2)
 	{
-		DrawRotaGraph(location.x, location.y, 0.3, 0.0, graphic, TRUE, TRUE);
+		DrawRotaGraph(location.x, location.y, 0.3, 0.0, graphic, TRUE);
 	}
 }
 

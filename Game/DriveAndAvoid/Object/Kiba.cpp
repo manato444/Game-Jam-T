@@ -14,14 +14,14 @@ void Kiba::Initialize()
 {
 
 	hp = 500;
-	power = 20;
+	power = 100;
 
-	graphic = LoadGraph("Resource/images/kiba.png");
+	graphic = LoadGraph("Resource/images/car_man.png");
 
 	//エラーチェック
 	if (graphic == -1)
 	{
-		throw("Resource/images/kiba.pngがありません\n");
+		throw("Resource/images/car_man.pngがありません\n");
 	}
 
 }
@@ -52,4 +52,9 @@ void Kiba::Draw()
 	{
 		DrawRotaGraph(location.x, location.y, 0.3, 0.0, graphic, TRUE, TRUE);
 	}
+}
+
+void Kiba::SetType(int type)
+{
+	this->type = type;
 }
