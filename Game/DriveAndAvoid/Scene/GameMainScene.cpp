@@ -4,16 +4,8 @@
 #include<math.h>
 #include "../Utility/InputControl.h"
 
-GameMainScene::GameMainScene() : high_score(0), back_ground(NULL), barrier_image(NULL), image(NULL),item_image(NULL),
-								sound(NULL), mileage(0), enemy(nullptr), item(nullptr), pt(nullptr), ui(nullptr)
+GameMainScene::GameMainScene() : image(NULL), sound(NULL), mileage(0), enemy(nullptr), pt(nullptr), ui(nullptr)
 {
-	int i;
-	for (i = 0; i < 3; i++)
-	{
-		enemy_image[i] = NULL;
-		enemy_count[i] = NULL;
-	}
-	
 }
 
 GameMainScene::~GameMainScene()
@@ -23,16 +15,6 @@ GameMainScene::~GameMainScene()
 //初期化処理
 void GameMainScene::Initialize()
 {
-
-	//高得点値を読み込む
-	ReadHighScore();
-
-	//画像の読み込み
-	back_ground = LoadGraph("Resource/images/back.bmp");
-	//back_ground = LoadGraph("Resource/images/space.bmp");
-
-	barrier_image = LoadGraph("Resource/images/barrier.png");
-	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image); 
 	//item_image = LoadGraph("Resource/images/gasoline.bmp");
 	
 	//↓飾り
@@ -47,12 +29,12 @@ void GameMainScene::Initialize()
 	ChangeVolumeSoundMem(255 * 70 / 100, sound);
 
 	//背景（地面）のフィルター
-	GraphFilter(back_ground, DX_GRAPH_FILTER_LEVEL, 35, 210, 120, 0, 255);
-	GraphFilter(back_ground, DX_GRAPH_FILTER_GAUSS, 32, 10);
+	//GraphFilter(back_ground, DX_GRAPH_FILTER_LEVEL, 35, 210, 120, 0, 255);
+	//GraphFilter(back_ground, DX_GRAPH_FILTER_GAUSS, 32, 10);
 
 
 	//エラーチェック
-	if (back_ground == -1)
+	/*if (back_ground == -1)
 	{
 		throw("Resource/images/back.bmpがありません\n");
 	}
@@ -67,11 +49,10 @@ void GameMainScene::Initialize()
 	if (item_image == -1)
 	{
 		throw("Resource/images/gasoline.bmpがありません");
-	}
+	}*/
 
 	//オブジェクトの生成
 	enemy = new Enemy_T;
-	item = new Item(item_image);
 	
 	ui = new UI_T;
 	ui->Initialize();
@@ -87,10 +68,10 @@ void GameMainScene::Initialize()
 	{
 		enemy[i] = nullptr;
 	}*/
-	for (int i = 0; i < 10; i++)
-	{
-		item = nullptr;
-	}
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	item = nullptr;
+	//}
 }
 
 //更新処理
@@ -237,6 +218,7 @@ eSceneType GameMainScene::Update()
 	{
 		return eSceneType::E_RESULT;
 	}*/
+
 	return GetNowScene();
 }
 
@@ -272,35 +254,35 @@ void GameMainScene::Finalize()
 	mileage = mileage / 10;
 	int score = (mileage * 10);
 		
-	for (int i = 0; i < 3; i++)
+	/*for (int i = 0; i < 3; i++)
 	{
 		score += (i + 1) * 50 * enemy_count[i];
-	}
+	}*/
 
 	//リザルトデータの書き込み
-	FILE* fp = nullptr;
+	//FILE* fp = nullptr;
 
-	//ファイルオープン
-	errno_t result = fopen_s(&fp, "Resource/dat/result_data.csv", "w");
+	////ファイルオープン
+	//errno_t result = fopen_s(&fp, "Resource/dat/result_data.csv", "w");
 
-	//エラーチェック
-	if (result != 0)
-	{
-		throw("Resource/dat/result_data.csvが開けません\n");
-	}
+	////エラーチェック
+	//if (result != 0)
+	//{
+	//	throw("Resource/dat/result_data.csvが開けません\n");
+	//}
 
-	//スコアを保存
-	fprintf(fp, "%d,\n", score);
-	fprintf(fp, "%d,\n", mileage);
+	////スコアを保存
+	//fprintf(fp, "%d,\n", score);
+	//fprintf(fp, "%d,\n", mileage);
 
-	//避けた数と得点を保存
-	for (int i = 0; i < 3; i++)
-	{
-		fprintf(fp, "%d,\n", enemy_count[i]);
-	}
+	////避けた数と得点を保存
+	//for (int i = 0; i < 3; i++)
+	//{
+	//	fprintf(fp, "%d,\n", enemy_count[i]);
+	//}
 
-	//ファイルクローズ
-	fclose(fp);
+	////ファイルクローズ
+	//fclose(fp);
 
 	//動的確保したオブジェクトを削除する
 	/*player->Finalize();
@@ -311,27 +293,6 @@ void GameMainScene::Finalize()
 
 	enemy->Finalize();
 	delete enemy;
-
-	/*for (int i = 0; i < 10; i++)
-	{
-		if (enemy[i] != nullptr)
-		{
-			enemy[i]->Finalize();
-			delete enemy[i];
-			enemy[i] = nullptr;
-		}
-	}*/
-	
-	for (int i = 0; i < 10; i++)
-	{
-		if (item != nullptr)
-		{
-			item->Finalize();
-			delete item;
-			item = nullptr;
-		}
-	}
-	delete item;
 }
 
 //現在のシーン情報を取得
@@ -341,15 +302,15 @@ eSceneType GameMainScene::GetNowScene() const
 }
 
 //ハイスコアの読み込み
-void GameMainScene::ReadHighScore()
-{
-	RankingData data;
-	data.Initialize();
-
-	high_score = data.GetScore(0);
-
-	data.Finalize();
-}
+//void GameMainScene::ReadHighScore()
+//{
+//	RankingData data;
+//	data.Initialize();
+//
+//	high_score = data.GetScore(0);
+//
+//	data.Finalize();
+//}
 
 //当たり判定処理（プレーヤーと敵）
 //bool GameMainScene::IsHitCheck(Player* p, Enemy_T* e)
