@@ -6,7 +6,7 @@
 float Player_T::stick2[2] = {};
 Vector2D Player_T::stick[2] = {};
 
-Player_T::Player_T() : Hp(0), Cursor(0), is_Pause(false)
+Player_T::Player_T() : Hp(0), Cursor(0), is_Pause(false), Money(0), Level(0), Count(0), ButtonCount(0)
 {
 	chara = new Character * [_MAX_CHARACTOR_];
 	for (int i = 0; i < _MAX_CHARACTOR_; i++)
@@ -52,6 +52,16 @@ void Player_T::Update()
 		chara[charaCount]->SetType(1);
 		chara[charaCount]->Update();
 	}
+
+	if (Count >= 50)
+	{
+		MoneyManager();
+		Count = 0;
+	}
+	else
+	{
+		Count++;
+	}
 }
 
 void Player_T::Draw() const
@@ -65,7 +75,7 @@ void Player_T::Draw() const
 		chara[i]->Draw();
 	}
 
-	DrawFormatString(20, 20, 0xffffff, "charaCount = %d", this->charaCount);
+	DrawFormatString(20, 20, 0xffffff, "StickX = %lf", this->SetLeft_Stick_X());
 }
 
 void Player_T::Finalize()
@@ -109,45 +119,48 @@ void Player_T::InputControlUi()
 		}
 
 		//十字移動処理
-		if (InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_LEFT))
 		{
 			Cursor--;
 			if (Cursor < 0)
 			{
-				Cursor = 4;
+				Cursor = 3;
 			}
 		}
-		if (InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_RIGHT))
 		{
 			Cursor++;
-			if (Cursor > 4)
+			if (Cursor > 3)
 			{
 				Cursor = 0;
 			}
 		}
 
 		//スティック移動処理
-		if (InputControl::GetLeft_Stick_X)
+		if (Player_T::SetLeft_Stick_X())
 		{
-			if (stick2[0] >= 0.1f)
+			if (stick2[0] >= 0.1f && ButtonCount == 0)
 			{
 				Cursor++;
-				if (Cursor > 4)
+				ButtonCount++;
+				if (Cursor > 3)
 				{
 					Cursor = 0;
 				}
 			}
-			else if (stick2[0] <= -0.1f)
+			else if (stick2[0] <= -0.1f && ButtonCount == 0)
 			{
 				Cursor--;
+				ButtonCount++;
 				if (Cursor < 0)
 				{
-					Cursor = 4;
+					Cursor = 3;
 				}
 			}
-			else if (stick2[0] == 0.0f)
+			else if (stick2[0] < 0.1f && stick2[0] > -0.1f)
 			{
 				Cursor;
+				ButtonCount = 0;
 			}
 		}
 
@@ -214,13 +227,25 @@ void Player_T::SetExPoint(int point)
 
 void Player_T::ExManager()
 {
-	if (ExPoint <= 0)
+	if (Level == 4 && ExPoint <= 0)
+	{
+
+	}
+	else if (ExPoint <= 0)
 	{
 		ExPoint = MaxExPoint[Level];
-
+		Level++;
 	}
 	else
 	{
 
 	}
+}
+
+void Player_T::MoneyManager()
+{
+	if (MaxMoney[Level] > Money) {
+		Money += 2;
+	}
+
 }

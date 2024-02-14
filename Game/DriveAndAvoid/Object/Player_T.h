@@ -13,6 +13,12 @@ private:
 	int Level;      //Levelの管理
 	int ExPoint;    //経験値の管理
 	int MaxExPoint[4] = { 30,50,70,100 };
+
+	int MaxMoney[5] = { 100,150,200,250,300 };
+	int Money;
+	int Count;
+	int ButtonCount;
+
 	Character** chara;
 
 	int charaCount;
@@ -42,6 +48,9 @@ public:
 	int GetCastleHp() { return this->Hp; }
 	int GetExPoint() { return this->ExPoint; }
 	int GetLevel() { return this->Level; }
+	int GetMaxExPoint() { return this->MaxExPoint[Level]; }
+	int GetMoney() { return this->Money; }
+	int GetMaxMoney() { return this->MaxMoney[Level]; }
 
 private:
 	void InputControlUi();
@@ -51,5 +60,6 @@ private:
 	static float SetRight_Stick_X();//右スティックY座標をセット
 
 	void ExManager();
+	void MoneyManager();
 };
 

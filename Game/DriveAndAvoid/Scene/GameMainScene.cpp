@@ -5,10 +5,7 @@
 
 
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL), barrier_image(NULL), image(NULL),item_image(NULL),
-								sound(NULL), mileage(0), player(nullptr), enemy(nullptr), item(nullptr), pt(nullptr), ui(nullptr),
-	Money(0),Level(0),Count(0)
-
-	
+								sound(NULL), mileage(0), player(nullptr), enemy(nullptr), item(nullptr), pt(nullptr), ui(nullptr)
 {
 	int i;
 	for (i = 0; i < 3; i++)
@@ -110,16 +107,7 @@ eSceneType GameMainScene::Update()
 
 	ui->SetCursor(pt->GetCursor());
 
-	if (Count >= 50)
-	{
-		MoneyManager();
-		Count = 0;
-	}
-	else
-	{
-		Count++;
-	}
-	ui->SetMoney(Money, MaxMoney[Level]);
+	ui->SetMoney(pt->GetMoney(), pt->GetMaxMoney());
 	/*
 	if (flg == 0)
 	{
@@ -398,12 +386,4 @@ bool GameMainScene::IsHitCheck(Player* p, Item* i)
 
 	//コリジョンデータより位置情報の差分が小さいなら、ヒット判定とする
 	return ((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
-}
-
-void GameMainScene::MoneyManager()
-{
-	if (MaxMoney[Level] > Money) {
-		Money += 2;
-	}
-
 }
