@@ -1,5 +1,5 @@
 #include "Enemy_T.h"
-#include"DxLib.h"
+#include "DxLib.h"
 
 enum Enemy
 {
@@ -67,10 +67,20 @@ void Enemy_T::Move()
 
 void Enemy_T::Draw() const
 {
-	if (Hp < 900)
-	{
+	int Normal;
+	int tank;
+	int Range;
+	int Kiba;
 
-	}
+	Normal = LoadGraph("Resouce/images/walking2_man.png");
+	tank = LoadGraph("Resouce/images/war_shield_man.png");
+	Range = LoadGraph("Resouce/images/Range.png");
+	Kiba = LoadGraph("Resouce/images/kiba.png");
+
+	DrawTurnGraph(0, 0, Normal, TRUE);
+	DrawTurnGraph(0, 0, tank, TRUE);
+	DrawTurnGraph(0, 0, Range, TRUE);
+	DrawTurnGraph(0, 0, Kiba, TRUE);
 }
 
 
