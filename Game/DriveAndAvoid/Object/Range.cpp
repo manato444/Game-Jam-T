@@ -2,7 +2,7 @@
 #include"DxLib.h"
 #include"Range.h"
 
-Range::Range() : hp(NULL), power(NULL), graphic(NULL), type(NULL), location(0.0f)
+Range::Range() : hp(NULL), power(NULL), graphic(NULL), type(NULL), Playerlocation(0.0f), Enemylocation(0.0f), ui(nullptr)
 {
 }
 
@@ -17,6 +17,11 @@ void Range::Initialize()
 
 	graphic = LoadGraph("Resource/images/Range.png");
 
+	ui = new UI_T;
+
+	Playerlocation = ui->GetPlayerSiro();
+	Enemylocation = ui->GetEnemySiro();
+
 	//エラーチェック
 	if (graphic == -1)
 	{
@@ -30,12 +35,12 @@ void Range::Update()
 	if (type == 1)
 	{
 		Vector2D move = Vector2D(1.0f, 0.0f);
-		location += move;
+		Playerlocation += move;
 	}
 	else if (type == 2)
 	{
 		Vector2D move = Vector2D(-1.0f, 0.0f);
-		location += move;
+		Enemylocation += move;
 	}
 }
 
@@ -43,11 +48,11 @@ void Range::Draw()
 {
 	if (type == 1)
 	{
-		DrawRotaGraph(location.x, location.y, 0.3, 0.0, graphic, TRUE);
+		DrawRotaGraph(Playerlocation.x, Playerlocation.y, 0.3, 0.0, graphic, TRUE);
 	}
 	else if (type == 2)
 	{
-		DrawRotaGraph(location.x, location.y, 0.3, 0.0, graphic, TRUE, TRUE);
+		DrawRotaGraph(Enemylocation.x, Enemylocation.y, 0.3, 0.0, graphic, TRUE, TRUE);
 	}
 }
 
