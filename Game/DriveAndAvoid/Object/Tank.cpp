@@ -64,11 +64,11 @@ void Tank::Draw()
 {
 	if (type == 1)
 	{
-		DrawRotaGraph(Playerlocation.x, Playerlocation.y, 0.3, 0.0, graphic, TRUE);
+		DrawRotaGraph(Playerlocation.x, Playerlocation.y, 0.3, 0.0, graphic, TRUE, TRUE);
 	}
 	else if (type == 2)
 	{
-		DrawRotaGraph(Enemylocation.x, Enemylocation.y, 0.3, 0.0, graphic, TRUE, TRUE);
+		DrawRotaGraph(Enemylocation.x, Enemylocation.y, 0.3, 0.0, graphic, TRUE, FALSE);
 	}
 }
 

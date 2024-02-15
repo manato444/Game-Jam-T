@@ -35,6 +35,6 @@ public:
 	int GetCharaCount() { return this->charaCount; }
 
 	void SetAttackCount() { AttackCount = 50; }
-	Character** GetCharacter() { return chara; }
+	Character** GetCharacter(int count);
 };
 

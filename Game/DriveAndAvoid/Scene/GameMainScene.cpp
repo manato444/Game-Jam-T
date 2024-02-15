@@ -55,7 +55,8 @@ void GameMainScene::Initialize()
 
 	//オブジェクトの生成
 	enemy = new Enemy_T;
-	
+	enemy->Initialize();
+
 	ui = new UI_T;
 	ui->Initialize();
 	
@@ -70,6 +71,7 @@ void GameMainScene::Initialize()
 
 	//chara = new Character;
 	pt = new Player_T;
+	pt->Initialize();
 
 	//オブジェクトの初期化
 	//player->Initialize();
@@ -104,7 +106,7 @@ eSceneType GameMainScene::Update()
 	//プレイヤーの攻撃
 	for (int PlayerCount = 0; PlayerCount < _MAX_CHARACTOR_; PlayerCount++)
 	{
-		Character** c = pt->GetCharacter();
+		Character** c = pt->GetCharacter(PlayerCount);
 		if (c[PlayerCount] == nullptr)
 		{
 			break;
@@ -112,9 +114,14 @@ eSceneType GameMainScene::Update()
 
 		for (int EnemyCount = 0; EnemyCount < _MAX_CHARACTOR_; EnemyCount++)
 		{
-			Character** ec = enemy->GetCharacter();
+			Character** ec = enemy->GetCharacter(EnemyCount);
 			if (ec[EnemyCount] == nullptr)
 			{
+				if (EnemyCount == 0)
+				{
+					c[PlayerCount]->SetAttackflg(false);
+				}
+
 				break;
 			}
 
@@ -150,15 +157,20 @@ eSceneType GameMainScene::Update()
 						ec[i] = nullptr;          //iにヌルポインタを代入する
 					}
 					PlayerTime[PlayerCount] = 100;
-					c[PlayerCount]->SetAttackflg(false);
 				}
 
-				//break;
+				break;
+			}
+			else
+			{
+				c[PlayerCount]->SetAttackflg(false);
 			}
 		}
 
-		if (c[PlayerCount]->GetPlayerLocation().x + 50 >= ui->GetEnemySiro().x)
+		if (c[PlayerCount]->GetPlayerLocation().x + 50 >= ui->GetEnemySiro().x
+			&& c[PlayerCount]->GetPlayerLocation().x <= ui->GetEnemySiro().x)
 		{
+			c[PlayerCount]->SetAttackflg(true);
 			if (PlayerSiroAttack >= c[PlayerCount]->WaitAttackTime())
 			{
 				enemy->EnemyCastleHp(c[PlayerCount]->GetPower());
@@ -179,7 +191,7 @@ eSceneType GameMainScene::Update()
 	//敵の攻撃
 	for (int EnemyCount = 0; EnemyCount < _MAX_CHARACTOR_; EnemyCount++)
 	{
-		Character** ec = enemy->GetCharacter();
+		Character** ec = enemy->GetCharacter(EnemyCount);
 		if (ec[EnemyCount] == nullptr)
 		{
 			break;
@@ -187,9 +199,13 @@ eSceneType GameMainScene::Update()
 
 		for (int PlayerCount = 0; PlayerCount < _MAX_CHARACTOR_; PlayerCount++)
 		{
-			Character** c = pt->GetCharacter();
+			Character** c = pt->GetCharacter(PlayerCount);
 			if (c[PlayerCount] == nullptr)
 			{
+				if (PlayerCount == 0)
+				{
+					ec[EnemyCount]->SetAttackflg(false);
+				}
 				break;
 			}
 
@@ -225,18 +241,23 @@ eSceneType GameMainScene::Update()
 						c[i] = nullptr;          //iにヌルポインタを代入する
 					}
 					EnemyTime[EnemyCount] = 100;
-					ec[EnemyCount]->SetAttackflg(false);
 				}
 
-				//break;
+				break;
+			}
+			else
+			{
+				ec[EnemyCount]->SetAttackflg(false);
 			}
 		}
 
-		if (ec[EnemyCount]->GetPlayerLocation().x - 50 <= ui->GetPlayerSiro().x)
+		if (ec[EnemyCount]->GetEnemyLocation().x - 50 <= ui->GetPlayerSiro().x
+			&& ec[EnemyCount]->GetEnemyLocation().x >= ui->GetPlayerSiro().x)
 		{
+			ec[EnemyCount]->SetAttackflg(true);
 			if (EnemySiroAttack >= ec[EnemyCount]->WaitAttackTime())
 			{
-				enemy->EnemyCastleHp(ec[EnemyCount]->GetPower());
+				pt->DecreaseCastleHp(ec[EnemyCount]->GetPower());
 				EnemySiroAttack = 0;
 			}
 			else

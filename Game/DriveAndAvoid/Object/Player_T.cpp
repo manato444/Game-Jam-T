@@ -289,7 +289,7 @@ bool Player_T::HpCheck()
 	return rex;
 }
 
-Character** Player_T::GetCharacter()
+Character** Player_T::GetCharacter(int count)
 {
 	return chara;
 }

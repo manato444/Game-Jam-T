@@ -68,11 +68,11 @@ void UI_T::Draw()const{
 
 	DrawFormatString(40, 20, 0xff0000, "Money %06d / %06d", this->Money, this->MaxMoney);
 
-	DrawFormatString(40, 40, 0xff0000, "Level %04d", this->Level);
+	DrawFormatString(40, 40, 0xff0000, "Level %d / 5", this->Level + 1);
 
 	DrawFormatString(40, 60, 0xff0000, "Exp %04d /Next %04d", this->Ex, this->MaxExPoint);
 
-	DrawRotaGraph(60, 440, 0.14, 0, NormalMan, TRUE,TRUE);
+	DrawRotaGraph(60, 440, 0.14, 0, NormalMan, TRUE, TRUE);
 	DrawRotaGraph(140, 440, 0.14, 0, ShieldMan, TRUE, TRUE);
 	DrawRotaGraph(220, 440, 0.07, 0, RangeMan, TRUE);
 	DrawRotaGraph(300, 440, 0.14, 0, CarMan, TRUE);

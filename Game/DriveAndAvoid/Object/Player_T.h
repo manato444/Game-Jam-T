@@ -58,7 +58,7 @@ public:
 
 	bool HpCheck();
 	void SetAttackCount() { AttackCount = 50; }
-	Character** GetCharacter();
+	Character** GetCharacter(int count);
 private:
 	void InputControlUi();
 
