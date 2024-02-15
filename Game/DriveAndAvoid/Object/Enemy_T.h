@@ -3,7 +3,7 @@
 #include "Character.h"
 
 
-#define _MAX_CHARACTOR_ 10
+#define _MAX_ENEMY_CHARACTOR_ 10
 
 class Enemy_T
 {
@@ -14,6 +14,7 @@ private:
 	Character** chara;
 
 	int charaCount;
+	int AttackCount;
 public:
 	//コンストラクタ(インスタンス生成時に最初に呼ばれる関数)
 	Enemy_T();
@@ -28,7 +29,12 @@ public:
 
 	void EnemyCastleHp(float Attack);
 
-	int GetHp();
+	int GetHp() { return Hp; }
+	bool HpCheck();
 	void randomchar();
+	int GetCharaCount() { return this->charaCount; }
+
+	void SetAttackCount() { AttackCount = 50; }
+	Character** GetCharacter() { return chara; }
 };
 

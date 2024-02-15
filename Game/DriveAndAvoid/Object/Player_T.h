@@ -2,7 +2,8 @@
 #include "../Utility/Vector2D.h"
 #include "Character.h"
 
-#define _MAX_CHARACTOR_ 10
+
+#define _MAX_PLAYER_CHARACTOR_ 10
 
 class Player_T
 {
@@ -22,6 +23,7 @@ private:
 	Character** chara;
 
 	int charaCount;
+	int AttackCount;
 
 private:
 	static float stick2[2];
@@ -52,6 +54,11 @@ public:
 	int GetMoney() { return this->Money; }
 	int GetMaxMoney() { return this->MaxMoney[Level]; }
 
+	int GetCharaCount() { return this->charaCount; }
+
+	bool HpCheck();
+	void SetAttackCount() { AttackCount = 50; }
+	Character** GetCharacter();
 private:
 	void InputControlUi();
 

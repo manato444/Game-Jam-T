@@ -5,6 +5,7 @@
 #include"../Object/Player_T.h"
 #include"../Object/UI_T.h"
 
+#define _MAX_CHARACTOR_ 10
 
 class GameMainScene : public SceneBase
 {
@@ -19,6 +20,12 @@ private:
 
 	int sound; //BGM
 	int image;	//è¸ÇË(?)
+
+	int PlayerTime[_MAX_CHARACTOR_];
+	int EnemyTime[_MAX_CHARACTOR_];
+
+	int PlayerSiroAttack;
+	int EnemySiroAttack;
 
 public:
 	GameMainScene();
