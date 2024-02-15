@@ -3,8 +3,10 @@
 #include"DxLib.h"
 #include<math.h>
 #include "../Utility/InputControl.h"
+#include "../Object/Character.h"
 
-GameMainScene::GameMainScene() : image(NULL), sound(NULL), mileage(0), enemy(nullptr), pt(nullptr), ui(nullptr)
+GameMainScene::GameMainScene() : image(NULL), sound(NULL), mileage(0), enemy(nullptr), pt(nullptr), ui(nullptr),
+PlayerSiroAttack(0), EnemySiroAttack(0)
 {
 }
 
@@ -57,6 +59,14 @@ void GameMainScene::Initialize()
 	ui = new UI_T;
 	ui->Initialize();
 	
+	for (int i = 0; i < _MAX_CHARACTOR_; i++)
+	{
+		PlayerTime[i] = 100;
+		EnemyTime[i] = 100;
+	}
+
+	PlayerSiroAttack = 100;
+	EnemySiroAttack = 100;
 
 	//chara = new Character;
 	pt = new Player_T;
@@ -90,6 +100,156 @@ eSceneType GameMainScene::Update()
 	//player->Update();
 	pt->Update();
 	enemy->Update();
+
+	//プレイヤーの攻撃
+	for (int PlayerCount = 0; PlayerCount < _MAX_CHARACTOR_; PlayerCount++)
+	{
+		Character** c = pt->GetCharacter();
+		if (c[PlayerCount] == nullptr)
+		{
+			break;
+		}
+
+		for (int EnemyCount = 0; EnemyCount < _MAX_CHARACTOR_; EnemyCount++)
+		{
+			Character** ec = enemy->GetCharacter();
+			if (ec[EnemyCount] == nullptr)
+			{
+				break;
+			}
+
+			//ec[EnemyCount]->SetEnemyLocation(c[PlayerCount]->GetEnemyLocation());
+
+			if (c[PlayerCount]->GetPlayerLocation().x + 50 >= ec[EnemyCount]->GetEnemyLocation().x
+				&& c[PlayerCount]->GetPlayerLocation().x <= ec[EnemyCount]->GetEnemyLocation().x)
+			{
+				c[PlayerCount]->SetAttackflg(true);
+
+				if (PlayerTime[PlayerCount] >= c[PlayerCount]->WaitAttackTime())
+				{
+					ec[EnemyCount]->SetSubHp(c[PlayerCount]->GetPower());
+					PlayerTime[PlayerCount] = 0;
+				}
+				else
+				{
+					PlayerTime[PlayerCount]++;
+				}
+
+				if (ec[EnemyCount]->HpCheck())
+				{
+					delete ec[EnemyCount];
+					ec[EnemyCount] = nullptr;
+					for (int i = (EnemyCount + 1); i < _MAX_CHARACTOR_; i++) { // 次の値を調べる処理
+
+						//iがヌルポインタだったらブレイク
+						if (ec[i] == nullptr) {
+							break;
+						}
+
+						ec[i - 1] = ec[i];       //i - 1に現在の値を代入する
+						ec[i] = nullptr;          //iにヌルポインタを代入する
+					}
+					PlayerTime[PlayerCount] = 100;
+					c[PlayerCount]->SetAttackflg(false);
+				}
+
+				//break;
+			}
+		}
+
+		if (c[PlayerCount]->GetPlayerLocation().x + 50 >= ui->GetEnemySiro().x)
+		{
+			if (PlayerSiroAttack >= c[PlayerCount]->WaitAttackTime())
+			{
+				enemy->EnemyCastleHp(c[PlayerCount]->GetPower());
+				PlayerSiroAttack = 0;
+			}
+			else
+			{
+				PlayerSiroAttack++;
+			}
+
+			if (enemy->HpCheck())
+			{
+				break;
+			}
+		}
+	}
+
+	//敵の攻撃
+	for (int EnemyCount = 0; EnemyCount < _MAX_CHARACTOR_; EnemyCount++)
+	{
+		Character** ec = enemy->GetCharacter();
+		if (ec[EnemyCount] == nullptr)
+		{
+			break;
+		}
+
+		for (int PlayerCount = 0; PlayerCount < _MAX_CHARACTOR_; PlayerCount++)
+		{
+			Character** c = pt->GetCharacter();
+			if (c[PlayerCount] == nullptr)
+			{
+				break;
+			}
+
+			//c[PlayerCount]->SetPlayerLocation(ec[EnemyCount]->GetPlayerLocation());
+
+			if (ec[EnemyCount]->GetEnemyLocation().x - 50 <= c[PlayerCount]->GetPlayerLocation().x 
+				&& ec[EnemyCount]->GetEnemyLocation().x >= c[PlayerCount]->GetPlayerLocation().x)
+			{
+				ec[EnemyCount]->SetAttackflg(true);
+
+				if (EnemyTime[EnemyCount] >= ec[EnemyCount]->WaitAttackTime())
+				{
+					c[PlayerCount]->SetSubHp(ec[EnemyCount]->GetPower());
+					EnemyTime[EnemyCount] = 0;
+				}
+				else
+				{
+					EnemyTime[EnemyCount]++;
+				}
+
+				if (c[PlayerCount]->HpCheck())
+				{
+					delete c[PlayerCount];
+					c[PlayerCount] = nullptr;
+					for (int i = (PlayerCount + 1); i < _MAX_CHARACTOR_; i++) { // 次の値を調べる処理
+
+						//iがヌルポインタだったらブレイク
+						if (c[i] == nullptr) {
+							break;
+						}
+
+						c[i - 1] = c[i];       //i - 1に現在の値を代入する
+						c[i] = nullptr;          //iにヌルポインタを代入する
+					}
+					EnemyTime[EnemyCount] = 100;
+					ec[EnemyCount]->SetAttackflg(false);
+				}
+
+				//break;
+			}
+		}
+
+		if (ec[EnemyCount]->GetPlayerLocation().x - 50 <= ui->GetPlayerSiro().x)
+		{
+			if (EnemySiroAttack >= ec[EnemyCount]->WaitAttackTime())
+			{
+				enemy->EnemyCastleHp(ec[EnemyCount]->GetPower());
+				EnemySiroAttack = 0;
+			}
+			else
+			{
+				EnemySiroAttack++;
+			}
+
+			if (pt->HpCheck())
+			{
+				break;
+			}
+		}
+	}
 
 	ui->SetCursor(pt->GetCursor());
 

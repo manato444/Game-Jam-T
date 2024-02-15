@@ -15,6 +15,9 @@ private:
 	float hp;		//‘Ì—Í
 	float power;	//UŒ‚—Í
 
+	bool is_Attack;
+	bool OneAttack;
+
 	//‰æ‘œƒf[ƒ^Ši”[
 	int graphic;
 
@@ -31,5 +34,15 @@ public:
 	virtual void Update() override;
 
 	virtual void  SetType(int type) override;
+	virtual void SetSubHp(int Damege) override;
+	virtual Vector2D GetPlayerLocation() override;
+	virtual Vector2D GetEnemyLocation() override;
 
+	virtual int GetPower() override;
+	virtual void SetAttackflg(bool b) override;
+	virtual bool HpCheck() override;
+	virtual int WaitAttackTime() override;
+
+	virtual void SetPlayerLocation(Vector2D p) override;
+	virtual void SetEnemyLocation(Vector2D e) override;
 };

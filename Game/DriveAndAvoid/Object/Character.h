@@ -32,5 +32,14 @@ public:
 	virtual void Draw() {};			//ï`âÊèàóù 
 
 	virtual void SetType(int type) {};
+	virtual void SetSubHp(int Damege) {};
+	virtual Vector2D GetPlayerLocation() { return Vector2D(); }
+	virtual Vector2D GetEnemyLocation() { return Vector2D(); }
 
+	virtual int GetPower() = 0;
+	virtual bool HpCheck() = 0;
+	virtual void SetAttackflg(bool b) {};
+	virtual int WaitAttackTime() = 0;
+	virtual void SetPlayerLocation(Vector2D p) {};
+	virtual void SetEnemyLocation(Vector2D e) {};
 };

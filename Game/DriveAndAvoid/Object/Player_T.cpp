@@ -9,10 +9,10 @@
 float Player_T::stick2[2] = {};
 Vector2D Player_T::stick[2] = {};
 
-Player_T::Player_T() : Hp(0), Cursor(0), is_Pause(false), Money(0), Level(0), Count(0), ButtonCount(0)
+Player_T::Player_T() : Hp(0), Cursor(0), is_Pause(false), Money(0), Level(0), Count(0), ButtonCount(0), AttackCount(0)
 {
-	chara = new Character * [_MAX_CHARACTOR_];
-	for (int i = 0; i < _MAX_CHARACTOR_; i++)
+	chara = new Character * [_MAX_PLAYER_CHARACTOR_];
+	for (int i = 0; i < _MAX_PLAYER_CHARACTOR_; i++)
 	{
 		chara[i] = nullptr;
 	}
@@ -28,6 +28,7 @@ void Player_T::Initialize()
 	charaCount = 0;
 	Hp = 1000;
 	Cursor = 0;
+	AttackCount = 100;
 }
 
 void Player_T::Update()
@@ -45,7 +46,7 @@ void Player_T::Update()
 		return;
 	}
 
-	for (charaCount = 0; charaCount < _MAX_CHARACTOR_; charaCount++)
+	for (charaCount = 0; charaCount < _MAX_PLAYER_CHARACTOR_; charaCount++)
 	{
 		if (chara[charaCount] == nullptr)
 		{
@@ -71,7 +72,7 @@ void Player_T::Update()
 
 void Player_T::Draw() const
 {
-	for (int i = 0; i < _MAX_CHARACTOR_; i++)
+	for (int i = 0; i < _MAX_PLAYER_CHARACTOR_; i++)
 	{
 		if (chara[i] == nullptr)
 		{
@@ -80,13 +81,13 @@ void Player_T::Draw() const
 		chara[i]->Draw();
 	}
 
-	DrawFormatString(20, 20, 0xffffff, "StickX = %lf", this->SetLeft_Stick_X());
+	//DrawFormatString(20, 20, 0xffffff, "StickX = %lf", this->SetLeft_Stick_X());
 }
 
 void Player_T::Finalize()
 {
 	//ƒLƒƒƒ‰‚É‰æ‘œ‚ª“ü‚Á‚Ä‚¢‚½‚ç
-	for (int i = 0; i < _MAX_CHARACTOR_; i++)
+	for (int i = 0; i < _MAX_PLAYER_CHARACTOR_; i++)
 	{
 		if (chara[i] != nullptr)
 		{
@@ -203,7 +204,7 @@ void Player_T::InputControlUi()
 
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 		{
-			if (charaCount < _MAX_CHARACTOR_ && chara[charaCount] == nullptr)
+			if (charaCount < _MAX_PLAYER_CHARACTOR_ && chara[charaCount] == nullptr)
 			{
 				PopCharactor();
 			}
@@ -280,4 +281,15 @@ void Player_T::PopCharactor()
 		chara[charaCount] = new Kiba;
 		chara[charaCount]->Initialize();
 	}
+}
+
+bool Player_T::HpCheck()
+{
+	bool rex = (Hp <= 0);
+	return rex;
+}
+
+Character** Player_T::GetCharacter()
+{
+	return chara;
 }
