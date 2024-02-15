@@ -2,9 +2,9 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 #include "Normal.h"
-#include"Tank.h"
-#include"Kiba.h"
-#include"Range.h"
+#include "Tank.h"
+#include "Range.h"
+#include "Kiba.h"
 
 float Player_T::stick2[2] = {};
 Vector2D Player_T::stick[2] = {};
@@ -28,15 +28,6 @@ void Player_T::Initialize()
 	charaCount = 0;
 	Hp = 1000;
 	Cursor = 0;
-
-	SoundEffect[0] = LoadSoundMem("Resource/sound/money_SE.mp3");
-	ChangeVolumeSoundMem(SoundEffect[0], 200);
-
-	if (SoundEffect[0] == -1)
-	{
-		throw("Resource/sound/money_SE.mp3Ç™Ç†ÇËÇ‹ÇπÇÒ");
-	}
-
 }
 
 void Player_T::Update()
@@ -135,10 +126,10 @@ void Player_T::InputControlUi()
 	{
 
 		//STARTÉ{É^ÉìÇ≈Pause
-		if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
+		/*if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
 		{
 			is_Pause = true;
-		}
+		}*/
 
 		//è\éöà⁄ìÆèàóù
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_LEFT))
@@ -212,13 +203,9 @@ void Player_T::InputControlUi()
 
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 		{
-
-			//PlaySoundMem(SoundEffect[0], DX_PLAYTYPE_BACK, TRUE);
-
 			if (charaCount < _MAX_CHARACTOR_ && chara[charaCount] == nullptr)
 			{
-				chara[charaCount] = new Nomal;
-				chara[charaCount]->Initialize();
+				PopCharactor();
 			}
 		}
 	}
@@ -269,4 +256,28 @@ void Player_T::MoneyManager()
 		Money += 2;
 	}
 
+}
+
+void Player_T::PopCharactor()
+{
+	if (Cursor == 0)
+	{
+		chara[charaCount] = new Nomal;
+		chara[charaCount]->Initialize();
+	}
+	else if (Cursor == 1)
+	{
+		chara[charaCount] = new Tank;
+		chara[charaCount]->Initialize();
+	}
+	else if (Cursor == 2)
+	{
+		chara[charaCount] = new Range;
+		chara[charaCount]->Initialize();
+	}
+	else if (Cursor == 3)
+	{
+		chara[charaCount] = new Kiba;
+		chara[charaCount]->Initialize();
+	}
 }

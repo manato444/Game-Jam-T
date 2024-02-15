@@ -28,7 +28,7 @@ void Enemy_T::Initialize()
 
 void Enemy_T::Update()
 {
-	if (enemy_popcount >= 250)
+	if (enemy_popcount >= 300)
 	{
 		randomchar();
 		enemy_popcount = 0;
@@ -107,11 +107,27 @@ void Enemy_T::Draw() const
 
 void Enemy_T::Finalize()
 {
+	for (int i = 0; i < _MAX_CHARACTOR_; i++)
+	{
+		if (chara[i] != nullptr)
+		{
+			delete chara[i];
+		}
+
+		chara[i] = nullptr;
+	}
 }
 
 void Enemy_T::EnemyCastleHp(float Attack)
 {
 	this->Hp -= Attack;
+
+	//HP‚ð‚O‚ÅŽ~‚ß‚é
+	if (Hp < 0)
+	{
+		Hp = 0;
+	}
+
 }
 
 int Enemy_T::GetHp()

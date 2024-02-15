@@ -57,6 +57,8 @@ public:
 private:
 	void InputControlUi();
 
+	void PopCharactor();
+
 	static float SetLeft_Stick_X();	//左スティックX座標をセット
 	static float SetLeft_Stick_Y();	//左スティックY座標をセット
 	static float SetRight_Stick_X();//右スティックY座標をセット
