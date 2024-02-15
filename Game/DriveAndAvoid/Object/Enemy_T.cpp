@@ -121,6 +121,13 @@ void Enemy_T::Finalize()
 void Enemy_T::EnemyCastleHp(float Attack)
 {
 	this->Hp -= Attack;
+
+	//HP‚ð‚O‚ÅŽ~‚ß‚é
+	if (Hp < 0)
+	{
+		Hp = 0;
+	}
+
 }
 
 int Enemy_T::GetHp()
