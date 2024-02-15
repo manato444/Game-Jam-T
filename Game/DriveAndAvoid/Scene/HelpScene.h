@@ -11,6 +11,8 @@ private:
 	int background_image;
 	int help_image;
 
+
+
 public:
 
 	HelpScene();

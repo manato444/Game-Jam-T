@@ -45,10 +45,34 @@ void GameMainScene::Initialize()
 
 	//BGM(ゲームジャム用)
 	sound = LoadSoundMem("Resource/sound/BGM1.mp3");
+	//sound = LoadSoundMem("Resource/sound/BGM2.mp3");
 
+
+	
+	//SE(コピペ用)
+	SoundEffect[0] = LoadSoundMem("Resource/sound/barn.mp3");
+	SoundEffect[1] = LoadSoundMem("Resource/sound/punch_SE1.mp3");
+	SoundEffect[2] = LoadSoundMem("Resource/sound/punch_SE2.mp3");
+	SoundEffect[3] = LoadSoundMem("Resource/sound/punch_SE3.mp3");
+	SoundEffect[4] = LoadSoundMem("Resource/sound/death_SE1.mp3");
+	SoundEffect[5] = LoadSoundMem("Resource/sound/death_SE2.mp3");
+	SoundEffect[6] = LoadSoundMem("Resource/sound/game_clear.mp3");
+	SoundEffect[7] = LoadSoundMem("Resource/sound/game_over.mp3");
+	SoundEffect[8] = LoadSoundMem("Resource/sound/money_SE.mp3");
+	SoundEffect[9] = LoadSoundMem("Resource/sound/carcrash.mp3");
+
+	//コピペ用
+	//PlaySoundMem(SoundEffect[0], DX_PLAYTYPE_BACK, TRUE);
+	
 
 	//ボリューム（BGM）
 	ChangeVolumeSoundMem(255 * 50 / 100, sound);
+
+	for (int i = 0; i < 9; i++)
+	{
+		ChangeVolumeSoundMem(255 * 70 / 100, SoundEffect[i]);
+	}
+	
 
 	//背景（地面）のフィルター
 	GraphFilter(back_ground, DX_GRAPH_FILTER_LEVEL, 35, 210, 120, 0, 255);
@@ -356,11 +380,13 @@ void GameMainScene::ReadHighScore()
 //当たり判定処理（プレーヤーと敵）
 bool GameMainScene::IsHitCheck(Player* p, Enemy_T* e)
 {
+	
 	//プレイヤーがバリアを貼っていたら、当たり判定を無視する
 	if (p->IsBarrier())
 	{
 		return false;
 	}
+	
 
 	//敵情報が無ければ、当たり判定を無視する
 	if (e == nullptr)

@@ -30,7 +30,9 @@ private:
 	int item_image;	//ƒAƒCƒeƒ€‰æ‘œ
 
 	int sound; //BGM
-	int image;	//ü‚è(?)
+	int image;	//?
+
+	int SoundEffect[10];
 
 public:
 	GameMainScene();

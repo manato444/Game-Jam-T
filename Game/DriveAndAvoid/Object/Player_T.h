@@ -23,6 +23,8 @@ private:
 
 	int charaCount;
 
+	int SoundEffect[3];
+
 private:
 	static float stick2[2];
 	static Vector2D stick[2];

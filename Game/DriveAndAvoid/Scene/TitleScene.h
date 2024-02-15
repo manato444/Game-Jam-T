@@ -15,6 +15,10 @@ private:
 	int help_image;
 	int end_image;
 
+	int SoundEfect[5];
+
+	int flg;
+
 public:
 
 	TitleScene();

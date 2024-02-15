@@ -28,6 +28,15 @@ void Player_T::Initialize()
 	charaCount = 0;
 	Hp = 1000;
 	Cursor = 0;
+
+	SoundEffect[0] = LoadSoundMem("Resource/sound/money_SE.mp3");
+	ChangeVolumeSoundMem(SoundEffect[0], 200);
+
+	if (SoundEffect[0] == -1)
+	{
+		throw("Resource/sound/money_SE.mp3‚ª‚ ‚è‚Ü‚¹‚ñ");
+	}
+
 }
 
 void Player_T::Update()
@@ -203,6 +212,9 @@ void Player_T::InputControlUi()
 
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 		{
+
+			//PlaySoundMem(SoundEffect[0], DX_PLAYTYPE_BACK, TRUE);
+
 			if (charaCount < _MAX_CHARACTOR_ && chara[charaCount] == nullptr)
 			{
 				chara[charaCount] = new Nomal;

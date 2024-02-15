@@ -23,10 +23,7 @@ void ResultScene::Initialize()
 	//画像の読み込み
 	back_ground = LoadGraph("Resource/images/back.bmp");
 	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
-
-
 	//GraphFilter(back_ground, DX_GRAPH_FILTER_GAUSS, 32, 1000);
-
 
 	//エラーチェック
 	if (back_ground == -1)

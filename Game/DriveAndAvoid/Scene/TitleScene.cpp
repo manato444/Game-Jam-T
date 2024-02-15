@@ -5,7 +5,7 @@
 
 
 TitleScene::TitleScene() : background_image(NULL), menu_image(NULL), sound(NULL),
-						   cursor_image(NULL), menu_cursor(0)
+						   cursor_image(NULL), menu_cursor(0), start_image(),end_image(), help_image()
 {
 }
 
@@ -17,7 +17,6 @@ TitleScene::~TitleScene()
 void TitleScene::Initialize()
 {
 
-	
 	//画像の読み込み
 	//background_image = LoadGraph("Resource/images/Title.bmp");
 	//background_image = LoadGraph("Resource/images/End.bmp");
@@ -34,8 +33,12 @@ void TitleScene::Initialize()
 
 	cursor_image = LoadGraph("Resource/images/cone.bmp");
 
-	//効果音
-	sound = LoadSoundMem("Resource/sound/engine.mp3");
+	//タイトルBGM
+	sound = LoadSoundMem("Resource/sound/Title_BGM1.mp3");
+
+	//ボリューム
+	ChangeVolumeSoundMem(255 * 60 / 100, sound);
+	PlaySoundMem(sound, TRUE);
 
 	//GraphFilter(menu_image, DX_GRAPH_FILTER_HSB, 0, 1, 11, 1);
 	//GraphFilter(background_image, DX_GRAPH_FILTER_LEVEL, 30, 210, 120, 0, 255);
@@ -56,9 +59,12 @@ void TitleScene::Initialize()
 	
 }
 
+
 //更新処理
 eSceneType TitleScene::Update()
 {
+
+	
 	bool flg = TRUE;
 	//カーソル下移動
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_DOWN) || CheckHitKey(KEY_INPUT_DOWN) > 0)
@@ -94,8 +100,6 @@ eSceneType TitleScene::Update()
 	//カーソル決定(決定した画面に遷移する)
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B) || CheckHitKey(KEY_INPUT_RETURN))
 	{
-		PlaySoundMem(sound, TRUE);
-		
 		switch (menu_cursor) 
 		{
 		case 0:
@@ -106,10 +110,8 @@ eSceneType TitleScene::Update()
 			return eSceneType::E_END;
 		}
 	}
-
 	//現在のシーンタイプを返す
 	return GetNowScene();
-
 }
 
 //描画処理
@@ -124,6 +126,7 @@ void TitleScene::Draw() const
 	//メニュー画像の描画
 	//DrawGraph(120, 200, menu_image, TRUE);
 
+	//メニュー画像の描画(ランキング以外)
 	DrawGraph(65, 223, start_image, TRUE);
 	DrawGraph(48, 253, help_image, TRUE);
 	DrawGraph(25, 285, end_image, TRUE);
@@ -133,13 +136,15 @@ void TitleScene::Draw() const
 
 	//DrawGraph(20, 300, menu_image, TRUE);
 	//DrawRotaGraph(250, 320 + menu_cursor * 40, 0.7, DX_PI / -2.0, cursor_image, TRUE);
-
 	//DrawString(8, 460, "B:決定", 0xffffff, 0);
 }
 
 //終了時処理
 void TitleScene::Finalize()
 {
+	//タイトルBGMストップ
+	StopSoundMem(sound);
+	
 	//読み込んだ画像の削除
 	DeleteGraph(background_image);
 	DeleteGraph(menu_image);
