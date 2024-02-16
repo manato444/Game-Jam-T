@@ -29,7 +29,7 @@ void Enemy_T::Initialize()
 
 void Enemy_T::Update()
 {
-	if (enemy_popcount >= 200)
+	if (enemy_popcount >= 250)
 	{
 		randomchar();
 		enemy_popcount = 0;
