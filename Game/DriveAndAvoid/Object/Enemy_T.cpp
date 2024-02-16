@@ -55,7 +55,7 @@ void Enemy_T::randomchar()
 {
 	int num = rand() % 100 + 1;
 
-	if (num <= 40)
+	if (num <= 60)
 	{
 		if (charaCount < _MAX_ENEMY_CHARACTOR_ && chara[charaCount] == nullptr)
 		{
