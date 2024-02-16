@@ -170,7 +170,6 @@ eSceneType GameMainScene::Update()
 							ec[i - 1] = ec[i];       //i - 1に現在の値を代入する
 							ec[i] = nullptr;          //iにヌルポインタを代入する
 						}
-						PlayerTime[PlayerCount] = 100;
 					}
 
 					break;
@@ -255,7 +254,6 @@ eSceneType GameMainScene::Update()
 							c[i - 1] = c[i];       //i - 1に現在の値を代入する
 							c[i] = nullptr;          //iにヌルポインタを代入する
 						}
-						EnemyTime[EnemyCount] = 100;
 					}
 
 					break;

@@ -76,9 +76,13 @@ void UI_T::Draw()const{
 	DrawFormatString(550, 300, 0xff0000, "EnemyHP \n %d", this->EnemyHP);
 
 	DrawRotaGraph(60, 440, 0.14, 0, NormalMan, TRUE, TRUE);
+	DrawFormatString(60, 450, 0xff0000, "20");
 	DrawRotaGraph(140, 440, 0.14, 0, ShieldMan, TRUE, TRUE);
+	DrawFormatString(140, 450, 0xff0000, "50");
 	DrawRotaGraph(220, 440, 0.07, 0, RangeMan, TRUE);
+	DrawFormatString(220, 450, 0xff0000, "120");
 	DrawRotaGraph(300, 440, 0.14, 0, CarMan, TRUE);
+	DrawFormatString(300, 450, 0xff0000, "200");
 
 	if (Player || Enemy)
 	{

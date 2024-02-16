@@ -14,7 +14,7 @@ Tank::~Tank()
 
 void Tank::Initialize()
 {
-	hp = 200;
+	hp = 150;
 	power = 15;
 	ExPoint = 10;
 	Money = 50;

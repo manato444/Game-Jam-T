@@ -14,8 +14,8 @@ Range::~Range()
 
 void Range::Initialize()
 {
-	hp = 500;
-	power = 20;
+	hp = 100;
+	power = 30;
 	ExPoint = 20;
 	Money = 120;
 

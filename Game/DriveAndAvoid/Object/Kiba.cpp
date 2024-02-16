@@ -15,8 +15,8 @@ Kiba::~Kiba()
 void Kiba::Initialize()
 {
 
-	hp = 500;
-	power = 100;
+	hp = 200;
+	power = 50;
 	ExPoint = 50;
 	Money = 200;
 

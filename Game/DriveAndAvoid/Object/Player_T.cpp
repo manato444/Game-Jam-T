@@ -202,7 +202,7 @@ void Player_T::InputControlUi()
 			}
 		}
 
-		if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 		{
 			if (charaCount < _MAX_PLAYER_CHARACTOR_ && chara[charaCount] == nullptr)
 			{

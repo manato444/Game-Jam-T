@@ -13,7 +13,7 @@ Nomal::~Nomal()
 
 void Nomal::Initialize()
 {
-	hp = 100;
+	hp = 30;
 	power = 10;
 	ExPoint = 5;
 	Money = 20;
