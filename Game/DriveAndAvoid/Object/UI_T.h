@@ -15,6 +15,12 @@ private:
 	int ShieldMan;
 	int RangeMan;
 	int CarMan;
+	int PlayerHP;
+	int EnemyHP;
+
+	bool Player;
+	bool Enemy;
+
 public:
 	UI_T();
 	~ UI_T();
@@ -27,8 +33,11 @@ public:
 	void SetLevel(int Level);
 	void SetCursor(int cursor);
 	void SetEx(int Ex, int MaxExPoint);
-
+	void SetHP(int PlayerHP, int EnemyHP);
 	Vector2D GetPlayerSiro();
 	Vector2D GetEnemySiro();
+
+	void PlayerWin(bool p) { this->Player = p; }
+	void EnemyWin(bool e) { this->Enemy = e; }
 };
 

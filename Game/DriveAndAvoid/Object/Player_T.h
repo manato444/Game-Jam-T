@@ -2,7 +2,13 @@
 #include "../Utility/Vector2D.h"
 #include "Character.h"
 
-#define _MAX_CHARACTOR_ 10
+
+#define _MAX_PLAYER_CHARACTOR_ 10
+
+#define _Normal_Money_ 20
+#define _Tank_Money_ 50
+#define _Range_Money_ 120
+#define _Kiba_Money_ 200
 
 class Player_T
 {
@@ -22,6 +28,7 @@ private:
 	Character** chara;
 
 	int charaCount;
+	int AttackCount;
 
 	int SoundEffect[3];
 
@@ -44,6 +51,7 @@ public:
 
 	void DecreaseCastleHp(float Attack);
 	void SetExPoint(int point);
+	void SetMoney(int money);
 
 	bool Is_PauseCheck() { return this->is_Pause; }
 	int GetCursor() { return this->Cursor; }
@@ -54,6 +62,11 @@ public:
 	int GetMoney() { return this->Money; }
 	int GetMaxMoney() { return this->MaxMoney[Level]; }
 
+	int GetCharaCount() { return this->charaCount; }
+
+	bool HpCheck();
+	void SetAttackCount() { AttackCount = 50; }
+	Character** GetCharacter(int count);
 private:
 	void InputControlUi();
 

@@ -3,8 +3,10 @@
 #include"DxLib.h"
 #include<math.h>
 #include "../Utility/InputControl.h"
+#include "../Object/Character.h"
 
-GameMainScene::GameMainScene() : image(NULL), sound(NULL), mileage(0), enemy(nullptr), pt(nullptr), ui(nullptr)
+GameMainScene::GameMainScene() : image(NULL), sound(NULL), mileage(0), enemy(nullptr), pt(nullptr), ui(nullptr),
+PlayerWin(false), EnemyWin(false)
 {
 }
 
@@ -53,13 +55,22 @@ void GameMainScene::Initialize()
 
 	//オブジェクトの生成
 	enemy = new Enemy_T;
-	
+	enemy->Initialize();
+
 	ui = new UI_T;
 	ui->Initialize();
 	
+	for (int i = 0; i < _MAX_CHARACTOR_; i++)
+	{
+		PlayerTime[i] = 100;
+		EnemyTime[i] = 100;
+		PlayerSiroAttack[i] = 100;
+		EnemySiroAttack[i] = 100;
+	}
 
 	//chara = new Character;
 	pt = new Player_T;
+	pt->Initialize();
 
 	//オブジェクトの初期化
 	//player->Initialize();
@@ -77,147 +88,336 @@ void GameMainScene::Initialize()
 //更新処理
 eSceneType GameMainScene::Update()
 {
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
+	if (PlayerWin || EnemyWin)
 	{
-		//WaitTimer(300);
-		return eSceneType::E_TITLE;
-	}
+		ui->PlayerWin(PlayerWin);
+		ui->EnemyWin(EnemyWin);
 
-	//BGM再生
-	PlaySoundMem(sound, DX_PLAYTYPE_LOOP, FALSE);
-
-	//プレイヤーの更新
-	//player->Update();
-	pt->Update();
-	enemy->Update();
-
-	ui->SetCursor(pt->GetCursor());
-
-	ui->SetMoney(pt->GetMoney(), pt->GetMaxMoney());
-
-	ui->SetEx(pt->GetExPoint(), pt->GetMaxExPoint());
-	/*
-	if (flg == 0)
-	{
-		chara = new Nomal;
-		chara->Initialize();
-		flg = 1;
-	}
-	*/
-
-	//移動距離の更新
-	//mileage += (int)player->GetSpeed() + 2;
-
-	//敵生成処理
-	/*if (mileage / 20 % 60 == 0)
-	{
-		for (int i = 0; i < 10; i++)
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 		{
-			if (enemy[i] == nullptr)
+			//WaitTimer(300);
+			return eSceneType::E_TITLE;
+		}
+	}
+	else
+	{
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
+		{
+			//WaitTimer(300);
+			return eSceneType::E_TITLE;
+		}
+
+		//BGM再生
+		PlaySoundMem(sound, DX_PLAYTYPE_LOOP, FALSE);
+
+		//プレイヤーの更新
+		//player->Update();
+		pt->Update();
+		enemy->Update();
+
+		//プレイヤーの攻撃
+		for (int PlayerCount = 0; PlayerCount < _MAX_CHARACTOR_; PlayerCount++)
+		{
+			Character** c = pt->GetCharacter(PlayerCount);
+			if (c[PlayerCount] == nullptr)
 			{
-				int type = GetRand(3) % 3;
-				enemy[i] = new Enemy_T(type, enemy_image[type]);
-				enemy[i]->Initialize();
 				break;
 			}
-		}
-	}*/
 
-	//アイテム生成
-	/*if (mileage / 20 % (GetRand(250) + 10) == 0)
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			if (item == nullptr)
+			for (int EnemyCount = 0; EnemyCount < _MAX_CHARACTOR_; EnemyCount++)
 			{
-				int type = item_image;
-				item = new Item(item_image);
-				item->Initialize();
-				break;
+				Character** ec = enemy->GetCharacter(EnemyCount);
+				if (ec[EnemyCount] == nullptr)
+				{
+					if (EnemyCount == 0)
+					{
+						c[PlayerCount]->SetAttackflg(false);
+					}
+
+					break;
+				}
+
+				//ec[EnemyCount]->SetEnemyLocation(c[PlayerCount]->GetEnemyLocation());
+
+				if (c[PlayerCount]->GetPlayerLocation().x + 50 >= ec[EnemyCount]->GetEnemyLocation().x
+					&& c[PlayerCount]->GetPlayerLocation().x <= ec[EnemyCount]->GetEnemyLocation().x)
+				{
+					c[PlayerCount]->SetAttackflg(true);
+
+					if (PlayerTime[PlayerCount] >= c[PlayerCount]->WaitAttackTime())
+					{
+						ec[EnemyCount]->SetSubHp(c[PlayerCount]->GetPower());
+						PlayerTime[PlayerCount] = 0;
+					}
+					else
+					{
+						PlayerTime[PlayerCount]++;
+					}
+
+					if (ec[EnemyCount]->HpCheck())
+					{
+						pt->SetExPoint(ec[EnemyCount]->GetExPoint());
+						pt->SetMoney(ec[EnemyCount]->GetMoney() / 2);
+						delete ec[EnemyCount];
+						ec[EnemyCount] = nullptr;
+						for (int i = (EnemyCount + 1); i < _MAX_CHARACTOR_; i++) { // 次の値を調べる処理
+
+							//iがヌルポインタだったらブレイク
+							if (ec[i] == nullptr) {
+								break;
+							}
+
+							ec[i - 1] = ec[i];       //i - 1に現在の値を代入する
+							ec[i] = nullptr;          //iにヌルポインタを代入する
+						}
+					}
+
+					break;
+				}
+				else
+				{
+					c[PlayerCount]->SetAttackflg(false);
+				}
+			}
+
+			if (c[PlayerCount]->GetPlayerLocation().x + 50 >= ui->GetEnemySiro().x
+				&& c[PlayerCount]->GetPlayerLocation().x <= ui->GetEnemySiro().x)
+			{
+				c[PlayerCount]->SetAttackflg(true);
+				if (PlayerSiroAttack[PlayerCount] >= c[PlayerCount]->WaitAttackTime())
+				{
+					enemy->EnemyCastleHp(c[PlayerCount]->GetPower());
+					PlayerSiroAttack[PlayerCount] = 0;
+				}
+				else
+				{
+					PlayerSiroAttack[PlayerCount]++;
+				}
+
+				if (enemy->HpCheck())
+				{
+					PlayerWin = true;
+					break;
+				}
 			}
 		}
-	}*/
-	
-	//アイテムの更新と当たり判定
-	//for (int i = 0; i < 10; i++)
-	//{
-	//	if (item != nullptr)
-	//	{
-	//		item->Update(player->GetSpeed());
 
-	//		//画面外に行ったら、削除
-	//		if (item->GetLocation().y >= 640.0f)
-	//		{
-	//			item->Finalize();
-	//			delete item;
-	//			item = nullptr;
-	//		}
+		//敵の攻撃
+		for (int EnemyCount = 0; EnemyCount < _MAX_CHARACTOR_; EnemyCount++)
+		{
+			Character** ec = enemy->GetCharacter(EnemyCount);
+			if (ec[EnemyCount] == nullptr)
+			{
+				break;
+			}
 
-	//		//当たり判定の確認
-	//		if (IsHitCheck(player, item))
-	//		{
-	//			player->FuelUp();
-	//			if (player->GetFuel() < 85000.0f)
-	//			{
-	//				//燃料回復
-	//				player->DecreaseFuel(+7000.0f);
+			for (int PlayerCount = 0; PlayerCount < _MAX_CHARACTOR_; PlayerCount++)
+			{
+				Character** c = pt->GetCharacter(PlayerCount);
+				if (c[PlayerCount] == nullptr)
+				{
+					if (PlayerCount == 0)
+					{
+						ec[EnemyCount]->SetAttackflg(false);
+					}
+					break;
+				}
 
-	//				if (player->GetFuel() > 85000.0f)	
-	//				{
-	//					player->GetFuel();
-	//				}
-	//			}
-	//			item->Finalize();
-	//			delete item;
-	//			item = nullptr;
-	//		}
-	//	}
-	//}
-	
-	//敵の更新と当たり判定チェック
-	//for (int i = 0; i < 10; i++)
-	//{
-	//	if (enemy[i] != nullptr)
-	//	{
-	//		enemy[i]->Update(player->GetSpeed());
+				//c[PlayerCount]->SetPlayerLocation(ec[EnemyCount]->GetPlayerLocation());
 
-	//		//画面外に行ったら、敵を削除してスコア加算
-	//		if (enemy[i]->GetLocation().y >= 640.0f)
-	//		{
-	//			enemy_count[enemy[i]->GetType()]++;
-	//			enemy[i]->Finalize();
-	//			delete enemy[i];
-	//			enemy[i] = nullptr;
-	//		}
+				if (ec[EnemyCount]->GetEnemyLocation().x - 50 <= c[PlayerCount]->GetPlayerLocation().x
+					&& ec[EnemyCount]->GetEnemyLocation().x >= c[PlayerCount]->GetPlayerLocation().x)
+				{
+					ec[EnemyCount]->SetAttackflg(true);
 
-	//		//当たり判定の確認
-	//		if (IsHitCheck(player, enemy[i]))
-	//		{
-	//			player->SetActive(false);
-	//			player->DecreaseHp(-160.0f);
-	//			player->CarCrash();
-	//			enemy[i]->Finalize();
-	//			delete enemy[i];
-	//			enemy[i] = nullptr;
-	//		}
-	//	}
-	//}
+					if (EnemyTime[EnemyCount] >= ec[EnemyCount]->WaitAttackTime())
+					{
+						c[PlayerCount]->SetSubHp(ec[EnemyCount]->GetPower());
+						EnemyTime[EnemyCount] = 0;
+					}
+					else
+					{
+						EnemyTime[EnemyCount]++;
+					}
 
-	/*
-	//startボタンでタイトルへ
-	
+					if (c[PlayerCount]->HpCheck())
+					{
+						delete c[PlayerCount];
+						c[PlayerCount] = nullptr;
+						for (int i = (PlayerCount + 1); i < _MAX_CHARACTOR_; i++) { // 次の値を調べる処理
 
-	//Yボタンでリザルトへ
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_Y))
-	{
-		return eSceneType::E_RESULT;
+							//iがヌルポインタだったらブレイク
+							if (c[i] == nullptr) {
+								break;
+							}
+
+							c[i - 1] = c[i];       //i - 1に現在の値を代入する
+							c[i] = nullptr;          //iにヌルポインタを代入する
+						}
+					}
+
+					break;
+				}
+				else
+				{
+					ec[EnemyCount]->SetAttackflg(false);
+				}
+			}
+
+			if (ec[EnemyCount]->GetEnemyLocation().x - 50 <= ui->GetPlayerSiro().x
+				&& ec[EnemyCount]->GetEnemyLocation().x >= ui->GetPlayerSiro().x)
+			{
+				ec[EnemyCount]->SetAttackflg(true);
+				if (EnemySiroAttack[EnemyCount] >= ec[EnemyCount]->WaitAttackTime())
+				{
+					pt->DecreaseCastleHp(ec[EnemyCount]->GetPower());
+					EnemySiroAttack[EnemyCount] = 0;
+				}
+				else
+				{
+					EnemySiroAttack[EnemyCount]++;
+				}
+
+				if (pt->HpCheck())
+				{
+					EnemyWin = true;
+					break;
+				}
+			}
+		}
+
+		ui->SetCursor(pt->GetCursor());
+
+		ui->SetMoney(pt->GetMoney(), pt->GetMaxMoney());
+
+		ui->SetEx(pt->GetExPoint(), pt->GetMaxExPoint());
+
+		ui->SetLevel(pt->GetLevel());
+
+		ui->SetHP(pt->GetCastleHp(), enemy->GetHp());
+		/*
+		if (flg == 0)
+		{
+			chara = new Nomal;
+			chara->Initialize();
+			flg = 1;
+		}
+		*/
+
+		//移動距離の更新
+		//mileage += (int)player->GetSpeed() + 2;
+
+		//敵生成処理
+		/*if (mileage / 20 % 60 == 0)
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				if (enemy[i] == nullptr)
+				{
+					int type = GetRand(3) % 3;
+					enemy[i] = new Enemy_T(type, enemy_image[type]);
+					enemy[i]->Initialize();
+					break;
+				}
+			}
+		}*/
+
+		//アイテム生成
+		/*if (mileage / 20 % (GetRand(250) + 10) == 0)
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				if (item == nullptr)
+				{
+					int type = item_image;
+					item = new Item(item_image);
+					item->Initialize();
+					break;
+				}
+			}
+		}*/
+
+		//アイテムの更新と当たり判定
+		//for (int i = 0; i < 10; i++)
+		//{
+		//	if (item != nullptr)
+		//	{
+		//		item->Update(player->GetSpeed());
+
+		//		//画面外に行ったら、削除
+		//		if (item->GetLocation().y >= 640.0f)
+		//		{
+		//			item->Finalize();
+		//			delete item;
+		//			item = nullptr;
+		//		}
+
+		//		//当たり判定の確認
+		//		if (IsHitCheck(player, item))
+		//		{
+		//			player->FuelUp();
+		//			if (player->GetFuel() < 85000.0f)
+		//			{
+		//				//燃料回復
+		//				player->DecreaseFuel(+7000.0f);
+
+		//				if (player->GetFuel() > 85000.0f)	
+		//				{
+		//					player->GetFuel();
+		//				}
+		//			}
+		//			item->Finalize();
+		//			delete item;
+		//			item = nullptr;
+		//		}
+		//	}
+		//}
+
+		//敵の更新と当たり判定チェック
+		//for (int i = 0; i < 10; i++)
+		//{
+		//	if (enemy[i] != nullptr)
+		//	{
+		//		enemy[i]->Update(player->GetSpeed());
+
+		//		//画面外に行ったら、敵を削除してスコア加算
+		//		if (enemy[i]->GetLocation().y >= 640.0f)
+		//		{
+		//			enemy_count[enemy[i]->GetType()]++;
+		//			enemy[i]->Finalize();
+		//			delete enemy[i];
+		//			enemy[i] = nullptr;
+		//		}
+
+		//		//当たり判定の確認
+		//		if (IsHitCheck(player, enemy[i]))
+		//		{
+		//			player->SetActive(false);
+		//			player->DecreaseHp(-160.0f);
+		//			player->CarCrash();
+		//			enemy[i]->Finalize();
+		//			delete enemy[i];
+		//			enemy[i] = nullptr;
+		//		}
+		//	}
+		//}
+
+		/*
+		//startボタンでタイトルへ
+
+
+		//Yボタンでリザルトへ
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_Y))
+		{
+			return eSceneType::E_RESULT;
+		}
+		*/
+		//プレイヤーの燃料か体力が0未満なら、リザルトに遷移する
+		/*if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
+		{
+			return eSceneType::E_RESULT;
+		}*/
 	}
-	*/
-	//プレイヤーの燃料か体力が0未満なら、リザルトに遷移する
-	/*if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
-	{
-		return eSceneType::E_RESULT;
-	}*/
 
 	return GetNowScene();
 }
