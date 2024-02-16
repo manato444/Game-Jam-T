@@ -29,7 +29,7 @@ void Enemy_T::Initialize()
 
 void Enemy_T::Update()
 {
-	if (enemy_popcount >= 300)
+	if (enemy_popcount >= 200)
 	{
 		randomchar();
 		enemy_popcount = 0;
@@ -55,7 +55,7 @@ void Enemy_T::randomchar()
 {
 	int num = rand() % 100 + 1;
 
-	if (num <= 50)
+	if (num <= 40)
 	{
 		if (charaCount < _MAX_ENEMY_CHARACTOR_ && chara[charaCount] == nullptr)
 		{
@@ -71,7 +71,7 @@ void Enemy_T::randomchar()
 			chara[charaCount]->Initialize();
 		}
 	}
-	else if (num <= 95)
+	else if (num <= 90)
 	{
 		if (charaCount < _MAX_ENEMY_CHARACTOR_ && chara[charaCount] == nullptr)
 		{
