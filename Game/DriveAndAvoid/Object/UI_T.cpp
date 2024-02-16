@@ -2,7 +2,7 @@
 #include "DxLib.h"
 
 UI_T::UI_T() : Money(0), MaxMoney(0),Level(0),Cursor(0),Ex(0),MaxExPoint(0),Green(NULL),Siro(NULL),NormalMan(NULL),
-ShieldMan(NULL),RangeMan(NULL),CarMan(NULL)
+ShieldMan(NULL),RangeMan(NULL),CarMan(NULL),PlayerHP(0),EnemyHP(0),Player(false),Enemy(false)
 {
 
 }
@@ -72,10 +72,28 @@ void UI_T::Draw()const{
 
 	DrawFormatString(40, 60, 0xff0000, "Exp %04d /Next %04d", this->Ex, this->MaxExPoint);
 
+	DrawFormatString(60, 300, 0xff0000, "PlayerHP \n %d", this->PlayerHP);
+	DrawFormatString(550, 300, 0xff0000, "EnemyHP \n %d", this->EnemyHP);
+
 	DrawRotaGraph(60, 440, 0.14, 0, NormalMan, TRUE, TRUE);
 	DrawRotaGraph(140, 440, 0.14, 0, ShieldMan, TRUE, TRUE);
 	DrawRotaGraph(220, 440, 0.07, 0, RangeMan, TRUE);
 	DrawRotaGraph(300, 440, 0.14, 0, CarMan, TRUE);
+
+	if (Player || Enemy)
+	{
+		//SetFontSize(200);
+		if (Player)
+		{
+			DrawFormatString(200, 150, 0xff0000, "Playerの勝利");
+		}
+		else if(Enemy)
+		{
+			DrawFormatString(200, 150, 0xff0000, "Enemyの勝利");
+		}
+		//SetFontSize(60);
+		DrawFormatString(200, 300, 0xff0000, "Bボタンでタイトルへ");
+	}
 }
 
 void UI_T::Finalize() {
@@ -106,4 +124,10 @@ Vector2D UI_T::GetPlayerSiro() {
 
 Vector2D UI_T::GetEnemySiro() {
 	return Vector2D(570, 230);
+}
+
+void UI_T::SetHP(int PlayerHP, int EnemyHP)
+{
+	this->PlayerHP = PlayerHP;
+	this->EnemyHP = EnemyHP;
 }

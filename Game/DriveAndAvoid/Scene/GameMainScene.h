@@ -24,8 +24,11 @@ private:
 	int PlayerTime[_MAX_CHARACTOR_];
 	int EnemyTime[_MAX_CHARACTOR_];
 
-	int PlayerSiroAttack;
-	int EnemySiroAttack;
+	int PlayerSiroAttack[_MAX_CHARACTOR_];
+	int EnemySiroAttack[_MAX_CHARACTOR_];
+
+	bool PlayerWin;
+	bool EnemyWin;
 
 public:
 	GameMainScene();

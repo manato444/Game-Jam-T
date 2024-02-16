@@ -42,4 +42,6 @@ public:
 	virtual int WaitAttackTime() = 0;
 	virtual void SetPlayerLocation(Vector2D p) {};
 	virtual void SetEnemyLocation(Vector2D e) {};
+	virtual int GetExPoint() = 0;
+	virtual int GetMoney() = 0;
 };

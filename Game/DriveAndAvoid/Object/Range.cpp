@@ -3,7 +3,7 @@
 #include"Range.h"
 
 Range::Range() : hp(NULL), power(NULL), graphic(NULL), type(NULL), Playerlocation(0.0f), Enemylocation(0.0f), ui(nullptr),
-is_Attack(false)
+is_Attack(false), ExPoint(0), Money(0)
 {
 }
 
@@ -16,6 +16,8 @@ void Range::Initialize()
 {
 	hp = 500;
 	power = 20;
+	ExPoint = 20;
+	Money = 120;
 
 	graphic = LoadGraph("Resource/images/Range.png");
 
@@ -122,4 +124,14 @@ void Range::SetPlayerLocation(Vector2D p)
 void Range::SetEnemyLocation(Vector2D e)
 {
 	Enemylocation = e;
+}
+
+int Range::GetExPoint()
+{
+	return ExPoint;
+}
+
+int Range::GetMoney()
+{
+	return Money;
 }

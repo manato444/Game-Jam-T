@@ -2,7 +2,7 @@
 #include"DxLib.h"
 
 Nomal::Nomal() : hp(NULL), power(NULL), graphic(NULL), type(NULL), Playerlocation(0.0f), Enemylocation(0), ui(nullptr),
- is_Attack(false), OneAttack(nullptr)
+ is_Attack(false), OneAttack(nullptr), ExPoint(0), Money(0)
 {
 }
 
@@ -15,6 +15,9 @@ void Nomal::Initialize()
 {
 	hp = 100;
 	power = 10;
+	ExPoint = 5;
+	Money = 20;
+
 	graphic = LoadGraph("Resource/images/walking2_man.png");
 
 	ui = new UI_T;
@@ -96,6 +99,11 @@ int Nomal::GetPower()
 	return power;
 }
 
+int Nomal::GetExPoint()
+{
+	return ExPoint;
+}
+
 void Nomal::SetAttackflg(bool b)
 {
 	is_Attack = b;
@@ -121,4 +129,9 @@ void Nomal::SetPlayerLocation(Vector2D p)
 void Nomal::SetEnemyLocation(Vector2D e)
 {
 	Enemylocation = e;
+}
+
+int Nomal::GetMoney()
+{
+	return Money;
 }

@@ -59,7 +59,7 @@ void Player_T::Update()
 
 	ExManager();
 
-	if (Count >= 50)
+	if (Count >= 20)
 	{
 		MoneyManager();
 		Count = 0;
@@ -202,7 +202,7 @@ void Player_T::InputControlUi()
 			}
 		}
 
-		if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 		{
 			if (charaCount < _MAX_PLAYER_CHARACTOR_ && chara[charaCount] == nullptr)
 			{
@@ -259,27 +259,48 @@ void Player_T::MoneyManager()
 
 }
 
+void Player_T::SetMoney(int money)
+{
+	this->Money += money;
+}
+
 void Player_T::PopCharactor()
 {
 	if (Cursor == 0)
 	{
-		chara[charaCount] = new Nomal;
-		chara[charaCount]->Initialize();
+		if (Money >= _Normal_Money_)
+		{
+			Money -= _Normal_Money_;
+			chara[charaCount] = new Nomal;
+			chara[charaCount]->Initialize();
+		}
 	}
 	else if (Cursor == 1)
 	{
-		chara[charaCount] = new Tank;
-		chara[charaCount]->Initialize();
+		if (Money >= _Tank_Money_)
+		{
+			Money -= _Tank_Money_;
+			chara[charaCount] = new Tank;
+			chara[charaCount]->Initialize();
+		}
 	}
 	else if (Cursor == 2)
 	{
-		chara[charaCount] = new Range;
-		chara[charaCount]->Initialize();
+		if (Money >= _Range_Money_)
+		{
+			Money -= _Range_Money_;
+			chara[charaCount] = new Range;
+			chara[charaCount]->Initialize();
+		}
 	}
 	else if (Cursor == 3)
 	{
-		chara[charaCount] = new Kiba;
-		chara[charaCount]->Initialize();
+		if (Money >= _Kiba_Money_)
+		{
+			Money -= _Kiba_Money_;
+			chara[charaCount] = new Kiba;
+			chara[charaCount]->Initialize();
+		}
 	}
 }
 

@@ -3,7 +3,7 @@
 #include"Tank.h"
 
 Tank::Tank() : hp(NULL), power(NULL), graphic(NULL), type(NULL),Playerlocation(0.0f), Enemylocation(0.0f), ui(nullptr),
-is_Attack(false)
+is_Attack(false), ExPoint(0), Money(0)
 {
 }
 
@@ -14,8 +14,10 @@ Tank::~Tank()
 
 void Tank::Initialize()
 {
-	hp = 500;
-	power = 20;
+	hp = 200;
+	power = 15;
+	ExPoint = 10;
+	Money = 50;
 
 	graphic = LoadGraph("Resource/images/war_shield_man.png");
 
@@ -121,4 +123,14 @@ void Tank::SetPlayerLocation(Vector2D p)
 void Tank::SetEnemyLocation(Vector2D e)
 {
 	Enemylocation = e;
+}
+
+int Tank::GetExPoint()
+{
+	return ExPoint;
+}
+
+int Tank::GetMoney()
+{
+	return Money;
 }

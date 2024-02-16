@@ -3,7 +3,7 @@
 #include"Kiba.h"
 
 Kiba::Kiba() : hp(NULL), power(NULL), graphic(NULL), type(NULL), Playerlocation(0.0f), Enemylocation(0.0f), ui(nullptr),
-is_Attack(false)
+is_Attack(false), ExPoint(0), Money(0)
 {
 }
 
@@ -17,6 +17,8 @@ void Kiba::Initialize()
 
 	hp = 500;
 	power = 100;
+	ExPoint = 50;
+	Money = 200;
 
 	graphic = LoadGraph("Resource/images/car_man.png");
 
@@ -125,4 +127,14 @@ void Kiba::SetPlayerLocation(Vector2D p)
 void Kiba::SetEnemyLocation(Vector2D e)
 {
 	Enemylocation = e;
+}
+
+int Kiba::GetExPoint()
+{
+	return ExPoint;
+}
+
+int Kiba::GetMoney()
+{
+	return Money;
 }

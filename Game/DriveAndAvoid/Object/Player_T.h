@@ -5,6 +5,11 @@
 
 #define _MAX_PLAYER_CHARACTOR_ 10
 
+#define _Normal_Money_ 20
+#define _Tank_Money_ 50
+#define _Range_Money_ 120
+#define _Kiba_Money_ 200
+
 class Player_T
 {
 private:
@@ -44,6 +49,7 @@ public:
 
 	void DecreaseCastleHp(float Attack);
 	void SetExPoint(int point);
+	void SetMoney(int money);
 
 	bool Is_PauseCheck() { return this->is_Pause; }
 	int GetCursor() { return this->Cursor; }

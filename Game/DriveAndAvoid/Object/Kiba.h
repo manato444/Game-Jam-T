@@ -15,6 +15,8 @@ private:
 
 	float hp;		//体力
 	float power;	//攻撃力
+	int ExPoint;    //経験値
+	int Money;      //必要かね
 
 	bool is_Attack;
 
@@ -47,4 +49,6 @@ public:
 
 	virtual void SetPlayerLocation(Vector2D p) override;
 	virtual void SetEnemyLocation(Vector2D e) override;
+	virtual int GetExPoint() override;
+	virtual int GetMoney() override;
 };
