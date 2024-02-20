@@ -7,7 +7,8 @@
 #include"HelpScene.h"
 #include"RankingDispScene.h"
 #include"RankingInputScene.h"
-
+#define WIDTH 1280
+#define HEIGHT 720
 
 SceneManager::SceneManager() : current_scene(nullptr)
 {
@@ -27,6 +28,12 @@ void SceneManager::Initialize()
 
 	//ウィンドウサイズを手動で変更できる
 	SetWindowSizeChangeEnableFlag(TRUE, TRUE);
+
+
+	//SetGraphMode(WIDTH, HEIGHT, 32);
+	//SetEmulation320x240(TRUE);
+
+	//SetGraphMode(WIDTH, HEIGHT, 32);
 
 	//ウィンドウモードで起動
 	if (ChangeWindowMode(TRUE) != DX_CHANGESCREEN_OK)

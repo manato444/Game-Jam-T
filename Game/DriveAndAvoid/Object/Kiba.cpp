@@ -15,8 +15,8 @@ Kiba::~Kiba()
 void Kiba::Initialize()
 {
 
-	hp = 200;
-	power = 50;
+	hp = 300;
+	power = 30;
 	ExPoint = 50;
 	Money = 200;
 
@@ -46,7 +46,7 @@ void Kiba::Update()
 		}
 		else
 		{
-			Vector2D move = Vector2D(1.0f, 0.0f);
+			Vector2D move = Vector2D(0.3f, 0.0f);
 			Playerlocation += move;
 		}
 	}
@@ -58,7 +58,7 @@ void Kiba::Update()
 		}
 		else
 		{
-			Vector2D move = Vector2D(-1.0f, 0.0f);
+			Vector2D move = Vector2D(-0.2f, 0.0f);
 			Enemylocation += move;
 		}
 	}

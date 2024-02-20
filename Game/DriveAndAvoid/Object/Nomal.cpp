@@ -13,8 +13,8 @@ Nomal::~Nomal()
 
 void Nomal::Initialize()
 {
-	hp = 30;
-	power = 10;
+	hp = 54;
+	power = 6;
 	ExPoint = 5;
 	Money = 20;
 
@@ -43,7 +43,7 @@ void Nomal::Update()
 		}
 		else
 		{
-			Vector2D move = Vector2D(1.0f, 0.0f);
+			Vector2D move = Vector2D(0.5f, 0.0f);
 			Playerlocation += move;
 		}
 	}
@@ -55,7 +55,7 @@ void Nomal::Update()
 		}
 		else
 		{
-			Vector2D move = Vector2D(-1.0f, 0.0f);
+			Vector2D move = Vector2D(-0.5f, 0.0f);
 			Enemylocation += move;
 		}
 	}

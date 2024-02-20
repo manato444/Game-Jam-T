@@ -14,8 +14,8 @@ Range::~Range()
 
 void Range::Initialize()
 {
-	hp = 100;
-	power = 30;
+	hp = 210;
+	power = 20;
 	ExPoint = 20;
 	Money = 120;
 
@@ -44,7 +44,7 @@ void Range::Update()
 		}
 		else
 		{
-			Vector2D move = Vector2D(1.0f, 0.0f);
+			Vector2D move = Vector2D(0.35f, 0.0f);
 			Playerlocation += move;
 		}
 	}
@@ -56,7 +56,7 @@ void Range::Update()
 		}
 		else
 		{
-			Vector2D move = Vector2D(-1.0f, 0.0f);
+			Vector2D move = Vector2D(-0.35f, 0.0f);
 			Enemylocation += move;
 		}
 	}

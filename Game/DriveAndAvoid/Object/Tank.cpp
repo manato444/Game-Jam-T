@@ -14,8 +14,8 @@ Tank::~Tank()
 
 void Tank::Initialize()
 {
-	hp = 150;
-	power = 15;
+	hp = 180;
+	power = 8;
 	ExPoint = 10;
 	Money = 50;
 
@@ -44,7 +44,7 @@ void Tank::Update()
 		}
 		else
 		{
-			Vector2D move = Vector2D(1.0f, 0.0f);
+			Vector2D move = Vector2D(0.5f, 0.0f);
 			Playerlocation += move;
 		}
 	}
@@ -56,7 +56,7 @@ void Tank::Update()
 		}
 		else
 		{
-			Vector2D move = Vector2D(-1.0f, 0.0f);
+			Vector2D move = Vector2D(-0.5f, 0.0f);
 			Enemylocation += move;
 		}
 	}

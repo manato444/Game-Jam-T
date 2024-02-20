@@ -5,7 +5,7 @@
 #include"../Object/Player_T.h"
 #include"../Object/UI_T.h"
 
-#define _MAX_CHARACTOR_ 10
+#define _MAX_CHARACTOR_ 30
 
 class GameMainScene : public SceneBase
 {

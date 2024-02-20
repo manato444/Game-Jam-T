@@ -3,7 +3,7 @@
 #include "Character.h"
 
 
-#define _MAX_ENEMY_CHARACTOR_ 10
+#define _MAX_ENEMY_CHARACTOR_ 50
 
 class Enemy_T
 {

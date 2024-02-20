@@ -3,7 +3,7 @@
 #include "Character.h"
 
 
-#define _MAX_PLAYER_CHARACTOR_ 10
+#define _MAX_PLAYER_CHARACTOR_ 50
 
 #define _Normal_Money_ 20
 #define _Tank_Money_ 50
@@ -18,9 +18,9 @@ private:
 	int Cursor;     //カーソル
 	int Level;      //Levelの管理
 	int ExPoint;    //経験値の管理
-	int MaxExPoint[4] = { 30,50,70,100 };
+	int MaxExPoint[7] = { 30,50,70,100, 150, 300, 350 };
 
-	int MaxMoney[5] = { 100,150,200,250,300 };
+	int MaxMoney[8] = { 100, 150, 200, 250, 300, 500, 800, 1000 };
 	int Money;
 	int Count;
 	int ButtonCount;

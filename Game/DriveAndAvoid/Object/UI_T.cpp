@@ -68,7 +68,7 @@ void UI_T::Draw()const{
 
 	DrawFormatString(40, 20, 0xff0000, "Money %06d / %06d", this->Money, this->MaxMoney);
 
-	DrawFormatString(40, 40, 0xff0000, "Level %d / 5", this->Level + 1);
+	DrawFormatString(40, 40, 0xff0000, "Level %d / 8", this->Level + 1);
 
 	DrawFormatString(40, 60, 0xff0000, "Exp %04d /Next %04d", this->Ex, this->MaxExPoint);
 

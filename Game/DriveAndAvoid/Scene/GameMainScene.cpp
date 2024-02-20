@@ -25,7 +25,10 @@ void GameMainScene::Initialize()
 	//BGM(気分で変える)
 	//sound = LoadSoundMem("Resource/sound/BreakItDown.mp3");
 	//sound = LoadSoundMem("Resource/sound/HappyMoment.mp3");
-	sound = LoadSoundMem("Resource/sound/LoveAndGold.mp3");
+	//sound = LoadSoundMem("Resource/sound/LoveAndGold.mp3");
+
+	sound = LoadSoundMem("Resource/sound/BGM1.mp3");
+
 
 	//ボリューム（BGM）
 	ChangeVolumeSoundMem(255 * 70 / 100, sound);

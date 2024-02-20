@@ -2,6 +2,8 @@
 
 #include "SceneBase.h"
 
+
+
 //固定化するフレームレート値
 #define TARGET_FREAM_RATE (60)
 

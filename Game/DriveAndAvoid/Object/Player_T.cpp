@@ -59,7 +59,7 @@ void Player_T::Update()
 
 	ExManager();
 
-	if (Count >= 20)
+	if (Count >= 17)
 	{
 		MoneyManager();
 		Count = 0;
@@ -253,7 +253,7 @@ void Player_T::ExManager()
 
 void Player_T::MoneyManager()
 {
-	if (MaxMoney[Level] > Money) {
+	if (MaxMoney[Level] >= Money) {
 		Money += 2;
 	}
 
