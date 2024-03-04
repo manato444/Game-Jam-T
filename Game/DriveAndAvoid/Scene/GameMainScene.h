@@ -20,8 +20,10 @@ private:
 
 	int sound; //BGM
 	int image;	//?
+	int E_image;
 
 	int SoundEffect[10];
+	int SE1;
 
 	int PlayerTime[_MAX_CHARACTOR_];
 	int EnemyTime[_MAX_CHARACTOR_];
@@ -31,6 +33,8 @@ private:
 
 	bool PlayerWin;
 	bool EnemyWin;
+
+
 
 public:
 	GameMainScene();

@@ -28,10 +28,33 @@ void GameMainScene::Initialize()
 	//sound = LoadSoundMem("Resource/sound/LoveAndGold.mp3");
 
 	sound = LoadSoundMem("Resource/sound/BGM1.mp3");
+	//sound = LoadSoundMem("Resource/sound/BGM2.mp3");
+
+
+	SoundEffect[0] = LoadSoundMem("Resource/sound/punch_SE1.mp3");
+	SoundEffect[1] = LoadSoundMem("Resource/sound/punch_SE2.mp3");
+	SoundEffect[2] = LoadSoundMem("Resource/sound/punch_SE3.mp3");
+
+	SoundEffect[3] = LoadSoundMem("Resource/sound/death_SE1.mp3");
+
+	SoundEffect[4] = LoadSoundMem("Resource/sound/barn_SE.mp3");
+
+	SoundEffect[5] = LoadSoundMem("Resource/sound/game_clear.mp3");
+	SoundEffect[6] = LoadSoundMem("Resource/sound/game_over.mp3");
+
+
+
+
+
 
 
 	//ボリューム（BGM）
-	ChangeVolumeSoundMem(255 * 70 / 100, sound);
+	ChangeVolumeSoundMem(255 * 60 / 100, sound);
+
+	for (int i = 0; i < 3; i++)
+	{
+		ChangeVolumeSoundMem(255 * 80 / 100, SoundEffect[i]);
+	}
 
 	//背景（地面）のフィルター
 	//GraphFilter(back_ground, DX_GRAPH_FILTER_LEVEL, 35, 210, 120, 0, 255);
@@ -149,7 +172,11 @@ eSceneType GameMainScene::Update()
 
 					if (PlayerTime[PlayerCount] >= c[PlayerCount]->WaitAttackTime())
 					{
-						ec[EnemyCount]->SetSubHp(c[PlayerCount]->GetPower());
+						
+						//SEの追加
+					 PlaySoundMem(SoundEffect[0], DX_PLAYTYPE_BACK, TRUE);
+
+;						ec[EnemyCount]->SetSubHp(c[PlayerCount]->GetPower());
 						PlayerTime[PlayerCount] = 0;
 					}
 					else
@@ -189,6 +216,10 @@ eSceneType GameMainScene::Update()
 				c[PlayerCount]->SetAttackflg(true);
 				if (PlayerSiroAttack[PlayerCount] >= c[PlayerCount]->WaitAttackTime())
 				{
+
+					//SEの追加
+					PlaySoundMem(SoundEffect[0], DX_PLAYTYPE_BACK, TRUE);
+
 					enemy->EnemyCastleHp(c[PlayerCount]->GetPower());
 					PlayerSiroAttack[PlayerCount] = 0;
 				}
@@ -199,7 +230,12 @@ eSceneType GameMainScene::Update()
 
 				if (enemy->HpCheck())
 				{
+					//SEの追加
+					PlaySoundMem(SoundEffect[5], DX_PLAYTYPE_BACK, TRUE);
+
 					PlayerWin = true;
+					//BGMを止める
+					StopSoundMem(sound);
 					break;
 				}
 			}
@@ -235,6 +271,10 @@ eSceneType GameMainScene::Update()
 
 					if (EnemyTime[EnemyCount] >= ec[EnemyCount]->WaitAttackTime())
 					{
+
+						//SEの追加
+						PlaySoundMem(SoundEffect[1], DX_PLAYTYPE_BACK, TRUE);
+
 						c[PlayerCount]->SetSubHp(ec[EnemyCount]->GetPower());
 						EnemyTime[EnemyCount] = 0;
 					}
@@ -273,6 +313,9 @@ eSceneType GameMainScene::Update()
 				ec[EnemyCount]->SetAttackflg(true);
 				if (EnemySiroAttack[EnemyCount] >= ec[EnemyCount]->WaitAttackTime())
 				{
+					//SEの追加
+					PlaySoundMem(SoundEffect[0], DX_PLAYTYPE_BACK, TRUE);
+
 					pt->DecreaseCastleHp(ec[EnemyCount]->GetPower());
 					EnemySiroAttack[EnemyCount] = 0;
 				}
@@ -283,7 +326,12 @@ eSceneType GameMainScene::Update()
 
 				if (pt->HpCheck())
 				{
+					//SEの追加
+					PlaySoundMem(SoundEffect[6], DX_PLAYTYPE_BACK, TRUE);
+
 					EnemyWin = true;
+					//BGMを止める
+					StopSoundMem(sound);
 					break;
 				}
 			}

@@ -90,9 +90,18 @@ void UI_T::Draw()const{
 		if (Player)
 		{
 			DrawFormatString(200, 150, 0xff0000, "PlayerÇÃèüóò");
+
+			SetDrawBlendMode(DX_BLENDMODE_INVSRC, 255);
+			DrawRotaGraph(570, 230, 0.4, 0, Siro, TRUE, TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
+			DrawRotaGraph(570, 230, 0.4, 0, Siro, TRUE, TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
+
 		}
 		else if(Enemy)
 		{
+
+
 			DrawFormatString(200, 150, 0xff0000, "EnemyÇÃèüóò");
 		}
 		//SetFontSize(60);

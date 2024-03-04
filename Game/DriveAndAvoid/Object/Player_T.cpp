@@ -29,6 +29,10 @@ void Player_T::Initialize()
 	Hp = 1000;
 	Cursor = 0;
 	AttackCount = 100;
+
+	SoundEffect[0] = LoadSoundMem("Resource/sound/money_SE.mp3");
+	SoundEffect[1] = LoadSoundMem("Resource/sound/cursor.mp3");
+
 }
 
 void Player_T::Update()
@@ -136,6 +140,8 @@ void Player_T::InputControlUi()
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_LEFT))
 		{
 			Cursor--;
+			PlaySoundMem(SoundEffect[1], DX_PLAYTYPE_BACK, TRUE);
+
 			if (Cursor < 0)
 			{
 				Cursor = 3;
@@ -144,6 +150,8 @@ void Player_T::InputControlUi()
 		if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_RIGHT))
 		{
 			Cursor++;
+			PlaySoundMem(SoundEffect[1], DX_PLAYTYPE_BACK, TRUE);
+
 			if (Cursor > 3)
 			{
 				Cursor = 0;
@@ -206,6 +214,7 @@ void Player_T::InputControlUi()
 		{
 			if (charaCount < _MAX_PLAYER_CHARACTOR_ && chara[charaCount] == nullptr)
 			{
+			
 				PopCharactor();
 			}
 		}
@@ -272,6 +281,7 @@ void Player_T::PopCharactor()
 		{
 			Money -= _Normal_Money_;
 			chara[charaCount] = new Nomal;
+			PlaySoundMem(SoundEffect[0], DX_PLAYTYPE_BACK, TRUE);
 			chara[charaCount]->Initialize();
 		}
 	}
@@ -281,6 +291,7 @@ void Player_T::PopCharactor()
 		{
 			Money -= _Tank_Money_;
 			chara[charaCount] = new Tank;
+			PlaySoundMem(SoundEffect[0], DX_PLAYTYPE_BACK, TRUE);
 			chara[charaCount]->Initialize();
 		}
 	}
@@ -290,6 +301,7 @@ void Player_T::PopCharactor()
 		{
 			Money -= _Range_Money_;
 			chara[charaCount] = new Range;
+			PlaySoundMem(SoundEffect[0], DX_PLAYTYPE_BACK, TRUE);
 			chara[charaCount]->Initialize();
 		}
 	}
@@ -299,6 +311,7 @@ void Player_T::PopCharactor()
 		{
 			Money -= _Kiba_Money_;
 			chara[charaCount] = new Kiba;
+			PlaySoundMem(SoundEffect[0], DX_PLAYTYPE_BACK, TRUE);
 			chara[charaCount]->Initialize();
 		}
 	}
